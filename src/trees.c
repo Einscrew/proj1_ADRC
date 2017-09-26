@@ -1,6 +1,6 @@
 #include "trees.h"
 
-struct {
+struct _Node{
 	int value;
 	struct _Node *left, *right;
 };
@@ -15,7 +15,25 @@ Node *newNode(int num){
 
 	aux = allocNode();
 	aux->value = num;
-	auz->right = aux->left = NULL;
+	aux->right = aux->left = NULL;
 
 	return aux;
 }
+
+void freeTree(Node * root){
+
+	if(root != NULL){
+		freeTree(root->left);
+		freeTree(root->right);
+		free(root);
+	}
+}
+
+
+
+/*
+
+insert
+free
+
+*/
