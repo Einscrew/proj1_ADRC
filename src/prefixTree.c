@@ -23,6 +23,8 @@ Node* PrefixTree(){
 		//insertNode(prefix, nextHop);
 	}
 
+
+	fclose(ptr);	
 	return root;
 
 }
