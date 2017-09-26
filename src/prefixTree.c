@@ -50,6 +50,8 @@ Node* PrefixTree(){
 	//printf("%d || %d\n",getValue(getLeft(root)), getValue(getLeft(getLeft(root))) );
 	printTree(root);
 
+
+	fclose(ptr);	
 	return root;
 
 }
