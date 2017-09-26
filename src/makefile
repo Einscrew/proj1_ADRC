@@ -1,13 +1,16 @@
 CFLAGS= -g -Wall -pedantic
 
-#lab06: lab06.o trees.o
-#	gcc $(CFLAGS) -o lab06 trees.o lab06.o
+p1: main.o prefixTree.o trees.o
+	gcc $(CFLAGS) -o p1 trees.o prefixTree.o main.o
 
-#lab06.o: lab06.c trees.h queue.h
-#	gcc $(CFLAGS) -c lab06.c
+main.o: main.c prefixTree.h trees.h
+	gcc $(CFLAGS) -c main.c
 
-tree.o: trees.c trees.h
+prefixTree.o: prefixTree.c prefixTree.h trees.h
+	gcc $(CFLAGS) -c prefixTree.c
+
+trees.o: trees.c trees.h
 	gcc $(CFLAGS) -c trees.c
 
 clean:
-	rm -f *.o *.~  *.gch #lab06
+	rm -f *.o *.~  *.gch p1
