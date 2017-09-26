@@ -1,8 +1,8 @@
-#include "trees.h"
+#include "prefixTree.h"
 
 int main(int argc, char const *argv[])
 {
 
-	int ola = 0;
+	Node * root = PrefixTree();
 	return 0;
 }
