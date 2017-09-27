@@ -32,7 +32,7 @@ Node* PrefixTree(){
 	char line[LINE];
 	char prefix[PREF_MAX_SIZE];
 	int nextHop = 0;
-	Node *root = newNode(-1);
+	Node *root = newNode(NO_HOPE);
 
 	if(ptr == NULL)
 	{
@@ -76,10 +76,10 @@ void insertNode(Node *node, char prefix[16], int nextHop, int prefixLength, int 
 		}
 	}
 
-	if(strcmp(prefix[number], "0") == 0)
-		(Node *)getLeft(node) = insertNode((Node *)getLeft(node), prefix, nextHop, prefixLength, number+1);
+	if(strcmp(&prefix[number], "0") == 0)
+		insertNode((Node *)getLeft(node), prefix, nextHop, prefixLength, number+1);
 	else
-		(Node *)getRight(node) = insertNode((Node *)getRight(node), prefix, nextHop, prefixLength, number+1);
+		insertNode((Node *)getRight(node), prefix, nextHop, prefixLength, number+1);
 		
 }
 
@@ -100,3 +100,4 @@ void printTree(Node * node){
 	else
 		printTree(getRight(node));
 }
+

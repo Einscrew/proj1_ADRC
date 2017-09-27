@@ -61,11 +61,3 @@ void freeTree(Node * root){
 	}
 }
 
-
-
-/*
-
-insert
-free
-
-*/
