@@ -4,27 +4,24 @@
 #define PREF_MAX_SIZE 16
 #define LINE 20
 
-/*void insertNode(char* p, int nextHop, int height, Node * node, int i){
-	if(height > 0){
-		if(p[i] == '1'){
+void insertNode(char* prefix, int nextHop, int prefixLength, Node *node, int index){
+
+	if(prefixLength > 0){
+		if(prefix[index] == '1'){
 			if(getRight(node) == NULL)
 				setRight(node, -1);
-
-			insertNode(p, nextHop, --height, (Node *)getRight(node),++i);
+			insertNode(prefix, nextHop, --prefixLength, (Node *)getRight(node),++index);
 			
 		}
-		else if(p[i]=='0'){
+		else if(prefix[index]=='0'){
 			if(getLeft(node) == NULL)
 				setLeft(node, -1);
-
-			insertNode(p, nextHop, --height, (Node *)getLeft(node),++i);
-			
+			insertNode(prefix, nextHop, --prefixLength, (Node *)getLeft(node),++index);
 		}
 	}
-	else{
+	else
 		setValue(&node, nextHop);
-	}
-}*/
+}
 
 Node* PrefixTree(){
 
@@ -33,6 +30,7 @@ Node* PrefixTree(){
 	char prefix[PREF_MAX_SIZE];
 	int nextHop = 0;
 	Node *root = newNode(NO_HOPE);
+	Node *aux = root;
 
 	if(ptr == NULL)
 	{
@@ -45,8 +43,8 @@ Node* PrefixTree(){
 	
 		sscanf(line, "%s %d", prefix, &nextHop);
 		printf("\t\t%s----%d\n", prefix, nextHop);
-		//insertNode(prefix, nextHop, strlen(prefix), root, 0);
-		insertNode(root, prefix, nextHop, strlen(prefix), 0);
+		insertNode(prefix, nextHop, strlen(prefix), root, 0);
+		//insertNode(aux, prefix, nextHop, strlen(prefix), 0);
 	}
 	//printf("%d || %d\n",getValue(getLeft(root)), getValue(getLeft(getLeft(root))) );
 	printTree(root);
@@ -62,32 +60,49 @@ Node* PrefixTree(){
    o primeiro nó, a root, não pode ser nulo */
 
 
-void insertNode(Node *node, char prefix[16], int nextHop, int prefixLength, int number){
+/*
+	printf("len: %d\n", prefixLength);
+	printf("prefix: %s\n", prefix);
+	printf("Index: %d\n", number);
+	printf("nextHop: %d\n", nextHop);
 
 	if(node == NULL){
 
 		if(number < prefixLength){
+
 			node = newNode(NO_HOPE);
 			number++;
+			printf("criou nó\n");
 		}
 		else{
-			newNode(nextHop);
+
+			node = newNode(nextHop);
+			setValue(&node, nextHop);
+			printf("criou nó nextHop\n");
 			return;
 		}
 	}
+	else if(node != NULL && number == prefixLength){
+		setValue(&node, nextHop);
+		return;
+	}
+
 
 	if(strcmp(&prefix[number], "0") == 0)
 		insertNode((Node *)getLeft(node), prefix, nextHop, prefixLength, number+1);
 	else
 		insertNode((Node *)getRight(node), prefix, nextHop, prefixLength, number+1);
 		
-}
+}*/
 
 
 
 
 
-void printTree(Node * node){
+/*void printTree(Node * node){
+
+	printf("ROOT next hop: %d\n", getValue(node));
+
 	if(getLeft(node) == NULL){
 		printf("%d\n", getValue(node));
 	}
@@ -99,5 +114,23 @@ void printTree(Node * node){
 	}
 	else
 		printTree(getRight(node));
+}*/
+
+void printTree(Node *n) /*see declaration of TNode below*/
+
+{
+
+     if(n==NULL)
+         return;
+
+     printTree(getLeft(n));
+
+     printTree(getRight(n));
+
+     printf("%d\n", getValue(n));
+
 }
+ 
+
+
 
