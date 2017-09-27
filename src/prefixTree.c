@@ -3,6 +3,7 @@
 #define FICH "t.txt"
 #define PREF_MAX_SIZE 16
 #define LINE 20
+#define NO_HOP -1
 
 void insertNode(char* p, int nextHop, int height, Node * node, int i){
 	if(height > 0){
@@ -48,12 +49,30 @@ Node* PrefixTree(){
 		insertNode(prefix, nextHop, strlen(prefix), root, 0);
 	}
 	//printf("%d || %d\n",getValue(getLeft(root)), getValue(getLeft(getLeft(root))) );
-	printTree(root);
-
+	//printTree(root);
 
 	fclose(ptr);	
 	return root;
 
+}
+
+
+int lookUp(Node* root, char * address){
+	Node * aux = root;
+	int ret = -1;
+	int i = 0;
+	while(aux != NULL){
+		if(getValue(aux)!= NO_HOP)
+			ret = getValue(aux);
+
+		if( address[i++] == '0'){
+			aux = getLeft(aux);
+		}
+		else
+			aux = getRight(aux);
+	}
+
+	return ret;
 }
 
 void printTree(Node * node){

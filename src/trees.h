@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#ifndef TREES
-#define TREES
+#ifndef _TREES_
+#define _TREES_
 
 typedef enum{
 	FALSE=0,

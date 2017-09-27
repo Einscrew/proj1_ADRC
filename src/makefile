@@ -12,5 +12,8 @@ prefixTree.o: prefixTree.c prefixTree.h trees.h
 trees.o: trees.c trees.h
 	gcc $(CFLAGS) -c trees.c
 
+item.o: item.c item.h
+	gcc $(CFLAGS) -c item.c
+
 clean:
 	rm -f *.o *.~  *.gch p1
