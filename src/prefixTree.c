@@ -4,7 +4,7 @@
 #define PREF_MAX_SIZE 16
 #define LINE 20
 
-void insertNode(char* p, int nextHop, int height, Node * node, int i){
+/*void insertNode(char* p, int nextHop, int height, Node * node, int i){
 	if(height > 0){
 		if(p[i] == '1'){
 			if(getRight(node) == NULL)
@@ -24,7 +24,7 @@ void insertNode(char* p, int nextHop, int height, Node * node, int i){
 	else{
 		setValue(&node, nextHop);
 	}
-}
+}*/
 
 Node* PrefixTree(){
 
@@ -45,7 +45,8 @@ Node* PrefixTree(){
 	
 		sscanf(line, "%s %d", prefix, &nextHop);
 		printf("\t\t%s----%d\n", prefix, nextHop);
-		insertNode(prefix, nextHop, strlen(prefix), root, 0);
+		//insertNode(prefix, nextHop, strlen(prefix), root, 0);
+		insertNode(root, prefix, nextHop, strlen(prefix), 0);
 	}
 	//printf("%d || %d\n",getValue(getLeft(root)), getValue(getLeft(getLeft(root))) );
 	printTree(root);
@@ -55,6 +56,36 @@ Node* PrefixTree(){
 	return root;
 
 }
+
+/* number - indice para tirar o 0 ou 1 de cada posição do vector
+   prefixLength - tamanho do prefixo 
+   o primeiro nó, a root, não pode ser nulo */
+
+
+void insertNode(Node *node, char prefix[16], int nextHop, int prefixLength, int number){
+
+	if(node == NULL){
+
+		if(number < prefixLength){
+			node = newNode(NO_HOPE);
+			number++;
+		}
+		else{
+			newNode(nextHop);
+			return;
+		}
+	}
+
+	if(strcmp(prefix[number], "0") == 0)
+		(Node *)getLeft(node) = insertNode((Node *)getLeft(node), prefix, nextHop, prefixLength, number+1);
+	else
+		(Node *)getRight(node) = insertNode((Node *)getRight(node), prefix, nextHop, prefixLength, number+1);
+		
+}
+
+
+
+
 
 void printTree(Node * node){
 	if(getLeft(node) == NULL){
