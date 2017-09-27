@@ -32,7 +32,7 @@ Node* PrefixTree(){
 	char line[LINE];
 	char prefix[PREF_MAX_SIZE];
 	int nextHop = 0;
-	Node *root = newNode(NO_HOP);
+	Node *root = newNode(NO_HOP, 1);
 
 	if(ptr == NULL)
 	{
@@ -61,7 +61,7 @@ void PrintTable(Node *node){
      PrintTable(getLeft(node));
  
      /* then print the data of node */
-     if(getValue(node) != NO_HOPE)
+     if(getValue(node) != NO_HOP)
      	printf("%s %d\n", getPrefix(node), getValue(node));  
  
      /* now recur on right child */

@@ -12,6 +12,7 @@ int main(int argc, char const *argv[])
 		i--;
 	}
 
+	PrintTable(root);
 
 	freeTree(root);
 	return 0;
