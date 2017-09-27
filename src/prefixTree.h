@@ -7,8 +7,9 @@
 #define NO_HOP -1
 
 Node* PrefixTree();
-int lookUp(Node * node, char * address);
 void insertNode(char* prefix, int nextHop, int prefixLength, Node *node, int index);
-void printTree(Node * node);
+void PrintTable(Node *node);
+int lookUp(Node * node, char * address);
+//void printTree(Node * node);
 
 #endif

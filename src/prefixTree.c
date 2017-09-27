@@ -10,18 +10,20 @@ void insertNode(char* prefix, int nextHop, int prefixLength, Node *node, int ind
 	if(prefixLength > 0){
 		if(prefix[index] == '1'){
 			if(getRight(node) == NULL)
-				setRight(node, NO_HOP);
+				setRight(node, NO_HOP, prefixLength);
 			insertNode(prefix, nextHop, --prefixLength, (Node *)getRight(node), ++index);
 			
 		}
 		else if(prefix[index]=='0'){
 			if(getLeft(node) == NULL)
-				setLeft(node, NO_HOP);
+				setLeft(node, NO_HOP, prefixLength);
 			insertNode(prefix, nextHop, --prefixLength, (Node *)getLeft(node), ++index);
 		}
 	}
-	else
+	else{
 		setValue(&node, nextHop);
+		setPrefix(node, prefix);
+	}
 }
 
 Node* PrefixTree(){
@@ -41,16 +43,29 @@ Node* PrefixTree(){
 	while(fgets(line, 20, ptr)!= NULL){
 	
 		sscanf(line, "%s %d", prefix, &nextHop);
-		printf("\t\t%s----%d\n", prefix, nextHop);
+		//printf("\t\t%s----%d\n", prefix, nextHop);
 		insertNode(prefix, nextHop, strlen(prefix), root, 0);
 	}
 	
-	//printTree(root);
-
-
-
 	fclose(ptr);	
 	return root;
+
+}
+
+void PrintTable(Node *node){
+
+     if(node == NULL)
+        return;
+ 
+     /* first recur on left child */
+     PrintTable(getLeft(node));
+ 
+     /* then print the data of node */
+     if(getValue(node) != NO_HOPE)
+     	printf("%s %d\n", getPrefix(node), getValue(node));  
+ 
+     /* now recur on right child */
+     PrintTable(getRight(node));
 
 }
 
@@ -76,21 +91,23 @@ int lookUp(Node* root, char * address){
 
 /* To test */
 
+/*
 void printTree(Node *node)
 {
-     if (node == NULL)
-          return;
+     if(node == NULL)
+        return;
  
-     /* first recur on left child */
      printTree(getLeft(node));
  
-     /* then print the data of node */
-     printf("%d\n", getValue(node));  
+
+     printf("%d\n", getValue(node));
+     printf("%s\n", getPrefix(node)); 
  
-     /* now recur on right child */
+
      printTree(getRight(node));
 }
- 
+*/
+
 
 
 

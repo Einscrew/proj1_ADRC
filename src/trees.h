@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
-#ifndef _TREES_
-#define _TREES_
+#ifndef TREES
+#define TREES
 
 typedef enum{
 	FALSE=0,
@@ -12,13 +13,15 @@ typedef enum{
 typedef struct _Node Node;
 
 Node *allocNode();
-Node *newNode(int num);
-Node *getRight(Node * node);
-Node *getLeft(Node * node);
-int getValue(Node * node);
-void setRight(Node * node, int num);
-void setLeft(Node * node, int num);
+Node *newNode(int num, int prefixLen);
+Node *getRight(Node *node);
+Node *getLeft(Node *node);
+int getValue(Node *node);
+char *getPrefix(Node *node);
+void setRight(Node *node, int num, int prefixLen);
+void setLeft(Node *node, int num, int prefixLen);
 void setValue(Node ** node, int num);
-void freeTree(Node * root);
+void setPrefix(Node *node, char *prefix);
+void freeTree(Node *root);
 
 #endif
