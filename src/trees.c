@@ -38,9 +38,6 @@ void setValue(Node ** node, int num){
 	(*node)->value = num;
 }
 
-
-
-
 Node *newNode(int num){
 	
 	Node* aux;
