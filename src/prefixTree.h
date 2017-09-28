@@ -12,6 +12,8 @@ void PrintPrefix(int hop);
 void PrintTable(Node *node);
 int lookUp(Node * node, char * address);
 void deletePrefix(Node * root, char * prefix);
+void showMenu();
+void menu(Node *node);
 //void printTree(Node * node);
 
 #endif

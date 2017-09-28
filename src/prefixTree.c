@@ -18,13 +18,13 @@ void insertPrefix(char* prefix, int nextHop, int prefixLength, Node *node, int i
 	if(prefixLength > 0){
 		if(prefix[index] == '1'){
 			if(getRight(node) == NULL)
-				setRight(node, NO_HOP, prefixLength);
+				setRight(node, NO_HOP);
 			insertPrefix(prefix, nextHop, --prefixLength, (Node *)getRight(node), ++index);
 			
 		}
 		else if(prefix[index]=='0'){
 			if(getLeft(node) == NULL)
-				setLeft(node, NO_HOP, prefixLength);
+				setLeft(node, NO_HOP);
 			insertPrefix(prefix, nextHop, --prefixLength, (Node *)getLeft(node), ++index);
 		}
 	}
@@ -39,7 +39,7 @@ Node* PrefixTree(){
 	char line[LINE];
 	char prefix[PREF_MAX_SIZE];
 	int nextHop = 0;
-	Node *root = newNode(NO_HOP, 1);
+	Node *root = newNode(NO_HOP);
 
 	if(ptr == NULL)
 	{
@@ -72,7 +72,7 @@ void PrintPrefix(int hop){
 }
 
 
-void PrintTable(Node * node){
+void PrintTable(Node *node){
 
 	if (node == NULL)
 		return;
@@ -91,7 +91,7 @@ void PrintTable(Node * node){
 
 }
 
-int lookUp(Node* root, char * address){
+int lookUp(Node* root, char *address){
 	Node * aux = root;
 	int ret = -1;
 	int i = 0;
@@ -109,7 +109,7 @@ int lookUp(Node* root, char * address){
 	return ret;
 }
 
-void deletePrefix(Node * root, char * prefix){
+void deletePrefix(Node *root, char *prefix){
 	// If the node to remove has no childs, then it can be erases,
 	// but if it does, only the nextHop is changed
 	Node * aux = root;
@@ -118,18 +118,112 @@ void deletePrefix(Node * root, char * prefix){
 	while(i < prefixLength){
 		if( prefix[i++] == '0')
 			aux = getLeft(aux);
-		
 		else
 			aux = getRight(aux);
 	}
-	if(getRight(aux) == NULL && getLeft(aux) == NULL){
-		free(getPrefix(aux));
+	if(getRight(aux) == NULL && getLeft(aux) == NULL)
 		free(aux);
-	}
-	else{
-		free(getPrefix(aux));
+	else
 		setValue(&aux, NO_HOP);
+}
+
+
+void menu(Node *node){
+
+	int option = 0;
+	int nextHop = NO_HOP;
+	char *address;
+	char *prefix;
+
+	showMenu();
+
+	while(option != 5){
+
+		scanf("%d", &option);
+
+		//system("clear");
+
+		switch(option){
+
+			case 1: 
+				PrintTable(node);
+				break;
+			case 2:
+				printf("Enter an address to search: \n");
+				address = (char*)malloc(16 * sizeof(char));
+				scanf("%s", address);
+				nextHop = lookUp(node, address);
+				printf("\nNext Hop: %d\n", nextHop);
+				free(address);
+				break;
+			case 3:
+				printf("Enter a new prefix and, after a space, the associated next hop: \n");
+				prefix = (char*)malloc(16 * sizeof(char));
+				scanf("%s %d", prefix, &nextHop);
+				insertPrefix(prefix, nextHop, strlen(prefix), node, 0);
+				free(prefix);
+				break;
+			case 4:
+				printf("Enter the prefix to delete: \n");
+				prefix = (char*)malloc(16 * sizeof(char));
+				scanf("%s", prefix);
+				deletePrefix(node, prefix);
+				free(prefix);
+				break;
+			case 5:
+				freeTree(node);
+				exit(-1);
+				break;
+			default:
+				printf("Enter a valid option\n");
+		}
+
+		showMenu();
 	}
+
+
+	/*while(scanf("%d", &option)){
+
+		address = "";
+		prefix = "";
+
+		if(option == 1)
+			PrintTable(node);
+		else if(option == 2){
+
+			printf("Enter an address to search: ");
+			scanf("%s", address);
+			lookUp(node, address);
+		}
+		else if(option == 3){
+
+			printf("Enter a new prefix and after a space the associated next hop: ");
+			scanf("%s %d", prefix, &nextHop);
+			insertPrefix(prefix, nextHop, strlen(prefix), node, 0);
+		}
+		else if(option == 4){
+
+			printf("Enter the prefix to delete: ");
+			scanf("%s", prefix);
+			deletePrefix(node, prefix);
+		}
+		else if(option == 5)
+			return;
+		else
+			printf("Enter a valid option\n");
+	}*/
+}
+
+
+void showMenu(){
+
+	printf("\n- Choose an option:\n\n");
+	printf("1. Print Prefix Table\n");
+	printf("2. Insert an address and get the next hop\n");
+	printf("3. Insert a new prefix in tree and the associated next hop\n");
+	printf("4. Delete a prefix from the tree\n");
+	printf("5. Exit\n\n");
+
 }
 
 /* To test */
