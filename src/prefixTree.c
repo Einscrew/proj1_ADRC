@@ -4,6 +4,14 @@
 #define PREF_MAX_SIZE 16
 #define LINE 20
 #define NO_HOP -1
+#define DEFAULT -2
+
+#define RIGHT 1
+#define LEFT 0
+#define REMOVE -3
+
+int prefixMap[PREF_MAX_SIZE] = {NO_HOP};
+int prefixIndex = -1;
 
 void insertPrefix(char* prefix, int nextHop, int prefixLength, Node *node, int index){
 
@@ -51,23 +59,50 @@ Node* PrefixTree(){
 	return root;
 
 }
+void PrintPrefix(int hop){
+	int i = 0;
+	while(i <= prefixIndex){
+		printf("%d", prefixMap[i]);
+		i++;
+	}
+	printf("  >%d\n",hop );
+}
+void PrintTable(Node * node){
+	if (node == NULL){
 
+		return;
+	}
+
+	if(getValue(node) != NO_HOP){
+		PrintPrefix(getValue(node));
+	}
+	prefixMap[++prefixIndex] = LEFT;
+	PrintTable(getLeft(node));
+	prefixMap[prefixIndex--] = NO_HOP;
+
+
+	prefixMap[++prefixIndex] = RIGHT;
+	PrintTable(getRight(node));
+	prefixMap[prefixIndex--] = NO_HOP;
+
+}
+
+/*
 void PrintTable(Node *node){
 
      if(node == NULL)
         return;
  
-     /* first recur on left child */
-     PrintTable(getLeft(node));
+    // first recur on left child 
+    PrintTable(getLeft(node));
  
-     /* then print the data of node */
-     if(getValue(node) != NO_HOP)
-     	printf("%s %d\n", getPrefix(node), getValue(node));  
- 
-     /* now recur on right child */
-     PrintTable(getRight(node));
+    // then print the data of node
+    if(getValue(node) != NO_HOP)
+	printf("%s %d\n", getPrefix(node), getValue(node));  
+	// now recur on right child 
+    PrintTable(getRight(node));
 
-}
+}*/
 
 
 int lookUp(Node* root, char * address){
@@ -106,7 +141,7 @@ void deletePrefix(Node * root, char * prefix){
 		free(aux);
 	}
 	else{
-		setPrefix(aux, NULL);
+		free(getPrefix(aux));
 		setValue(&aux, NO_HOP);
 	}
 }
