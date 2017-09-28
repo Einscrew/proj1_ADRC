@@ -5,19 +5,19 @@
 #define LINE 20
 #define NO_HOP -1
 
-void insertNode(char* prefix, int nextHop, int prefixLength, Node *node, int index){
+void insertPrefix(char* prefix, int nextHop, int prefixLength, Node *node, int index){
 
 	if(prefixLength > 0){
 		if(prefix[index] == '1'){
 			if(getRight(node) == NULL)
 				setRight(node, NO_HOP, prefixLength);
-			insertNode(prefix, nextHop, --prefixLength, (Node *)getRight(node), ++index);
+			insertPrefix(prefix, nextHop, --prefixLength, (Node *)getRight(node), ++index);
 			
 		}
 		else if(prefix[index]=='0'){
 			if(getLeft(node) == NULL)
 				setLeft(node, NO_HOP, prefixLength);
-			insertNode(prefix, nextHop, --prefixLength, (Node *)getLeft(node), ++index);
+			insertPrefix(prefix, nextHop, --prefixLength, (Node *)getLeft(node), ++index);
 		}
 	}
 	else{
@@ -44,7 +44,7 @@ Node* PrefixTree(){
 	
 		sscanf(line, "%s %d", prefix, &nextHop);
 		//printf("\t\t%s----%d\n", prefix, nextHop);
-		insertNode(prefix, nextHop, strlen(prefix), root, 0);
+		insertPrefix(prefix, nextHop, strlen(prefix), root, 0);
 	}
 	
 	fclose(ptr);	
@@ -88,6 +88,28 @@ int lookUp(Node* root, char * address){
 	return ret;
 }
 
+void deletePrefix(Node * root, char * prefix){
+	// If the node to remove has no childs, then it can be erases,
+	// but if it does, only the nextHop is changed
+	Node * aux = root;
+	int i = 0;
+	int prefixLength = strlen(prefix);
+	while(i < prefixLength){
+		if( prefix[i++] == '0')
+			aux = getLeft(aux);
+		
+		else
+			aux = getRight(aux);
+	}
+	if(getRight(aux) == NULL && getLeft(aux) == NULL){
+		free(getPrefix(aux));
+		free(aux);
+	}
+	else{
+		setPrefix(aux, NULL);
+		setValue(&aux, NO_HOP);
+	}
+}
 
 /* To test */
 
