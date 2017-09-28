@@ -55,7 +55,7 @@ Node *newNode(int num, int prefixLen){
 	aux = allocNode();
 	aux->value = num;
 	aux->right = aux->left = NULL;
-	aux-> prefix = (char*)malloc(prefixLen * sizeof(char));
+	aux->prefix = (char*)malloc(prefixLen * sizeof(char));
 
 	return aux;
 }
