@@ -2,7 +2,6 @@
 
 struct _Node{
 	int value;
-	char *prefix;
 	struct _Node *left, *right;
 };
 
@@ -22,20 +21,16 @@ int getValue(Node * node){
 	return node->value;
 }
 
-char *getPrefix(Node *node){
-	return (node->prefix);
-}
-
-void setRight(Node * node, int num, int prefixLen){
+void setRight(Node * node, int num){
 	if(node->right == NULL)
-		node->right=newNode(num, prefixLen);
+		node->right=newNode(num);
 	else
 		setValue(&node->right, num);
 }
 
-void setLeft(Node * node, int num, int prefixLen){
+void setLeft(Node * node, int num){
 	if(node->left == NULL)
-		node->left=newNode(num, prefixLen);
+		node->left=newNode(num);
 	else
 		setValue(&node->left, num);
 }
@@ -44,18 +39,14 @@ void setValue(Node **node, int num){
 	(*node)->value = num;
 }
 
-void setPrefix(Node *node, char *prefix){
-	strcpy(node->prefix, prefix);
-}
 
-Node *newNode(int num, int prefixLen){
+Node *newNode(int num){
 	
 	Node* aux;
 
 	aux = allocNode();
 	aux->value = num;
 	aux->right = aux->left = NULL;
-	aux->prefix = (char*)malloc(prefixLen * sizeof(char));
 
 	return aux;
 }
@@ -63,7 +54,6 @@ Node *newNode(int num, int prefixLen){
 void freeTree(Node * root){
 
 	if(root != NULL){
-		free(root->prefix);
 		freeTree(root->left);
 		freeTree(root->right);
 		free(root);
