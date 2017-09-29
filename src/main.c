@@ -13,7 +13,7 @@ int main(int argc, char const *argv[])
 		i--;
 	}*/
 	/*PrintTable(root);
-	deletePrefix(root, "1");
+	DeletePrefix(root, "1");
 	printf("---------------\n");
 	PrintTable(root);*/
 	freeTree(root);

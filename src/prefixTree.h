@@ -6,14 +6,13 @@
 
 #define NO_HOP -1
 
-Node* PrefixTree();
-void insertPrefix(char* prefix, int nextHop, int prefixLength, Node *node, int index);
-void PrintPrefix(int hop);
-void PrintTable(Node *node);
-int lookUp(Node * node, char * address);
-void deletePrefix(Node * root, char * prefix);
-void showMenu();
 void menu(Node *node);
-//void printTree(Node * node);
+Node* PrefixTree();
+void PrintTable(Node *node);
+int LookUp(Node * node, char * address);
+void InsertPrefix(char* prefix, int nextHop, int prefixLength, Node *node, int index);
+void DeletePrefix(Node * root, char * prefix);
+void PrintPrefix(int hop);
+void showMenu();
 
 #endif
