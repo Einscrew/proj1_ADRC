@@ -7,7 +7,7 @@
 #define NO_HOP -1
 
 void menu(Node *node);
-Node* PrefixTree();
+Node* PrefixTree(char const * file);
 void PrintTable(Node *node);
 int LookUp(Node * node, char * address);
 void InsertPrefix(char* prefix, int nextHop, int prefixLength, Node *node, int index);

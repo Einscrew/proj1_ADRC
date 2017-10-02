@@ -2,8 +2,9 @@
 
 int main(int argc, char const *argv[])
 {
-
-	Node *root = PrefixTree();
+	// Last argument is the file to read from
+	char const * file = argv[argc-1];
+	Node *root = PrefixTree(file);
 	menu(root);
 	/*int i = 5;
 	char address[17] = "\0";*/

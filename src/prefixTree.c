@@ -39,7 +39,7 @@ void menu(Node *node){
 
 		scanf("%d", &option);
 
-		//system("clear");
+		system("clear");
 
 		switch(option){
 
@@ -81,9 +81,9 @@ void menu(Node *node){
 }
 
 /******************************************************************************************
- * PrefixTree()
+ * PrefixTree(char* file)
  *
- * Arguments: (none)
+ * Arguments: file - file where to read prefixes from
  * Returns: root tree
  * Side-Effects: builds the tree through the file given
  *
@@ -91,9 +91,9 @@ void menu(Node *node){
  *
  ******************************************************************************************/
 
-Node* PrefixTree(){
+Node* PrefixTree(char const * file){
 
-	FILE* ptr = fopen(FICH, "r");
+	FILE* ptr = fopen(file, "r");
 	char line[LINE];
 	char prefix[PREF_MAX_SIZE];
 	int nextHop = 0;
