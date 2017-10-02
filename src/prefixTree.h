@@ -1,5 +1,6 @@
 #include <string.h>
 #include "trees.h"
+#include "utils.h"
 
 #ifndef _PREF_
 #define _PREF_
