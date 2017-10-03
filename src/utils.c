@@ -118,7 +118,21 @@ int checkPrefix(char * prefix){
 	return strlen(prefix) <= 16 ? 1 : 0;
 }
 
-void * mallocVerified(int number, int size){
+/******************************************************************************************
+ * mallocVerified()
+ *
+ * Arguments: number - size to be allocated
+ *			  size - soze of the variable
+ *			 
+ * Returns: (viod)
+ * Side-Effects: -
+ *
+ * Description: Verifies if memory was allocated correctly
+ * 
+ *
+ ******************************************************************************************/
+
+void *mallocVerified(int number, int size){
 	void * ptr = malloc(size * number);
 
 	if(ptr == NULL){
