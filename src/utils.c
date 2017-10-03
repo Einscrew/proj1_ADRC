@@ -43,7 +43,7 @@ void menu(Node *node){
 				break;
 			case 2:
 				printf("Enter an address to search: \n");
-				address = (char*)malloc((PREF_MAX_SIZE+1) * sizeof(char));
+				address = mallocVerified((PREF_MAX_SIZE+1), sizeof(char));
 				scanf("%s", address);
 				nextHop = LookUp(node, address);
 				printf("\nNext Hop: %d\n", nextHop);
@@ -51,10 +51,9 @@ void menu(Node *node){
 				break;
 			case 3:
 				printf("Enter a new prefix and, after a space, the associated next hop: \n");
-				prefix = (char*)malloc((PREF_MAX_SIZE+1) * sizeof(char));
+				prefix = mallocVerified((PREF_MAX_SIZE+1), sizeof(char));
 				scanf("%s %d", prefix, &nextHop);
 				printf("\n%s %d\n", prefix, nextHop);
-
 				checkPrefix(prefix);
 				InsertPrefix(prefix, nextHop, strlen(prefix), node, 0);
 				free(prefix);
@@ -62,7 +61,7 @@ void menu(Node *node){
 				break;
 			case 4:
 				printf("Enter the prefix to delete: \n");
-				prefix = (char*)malloc((PREF_MAX_SIZE+1) * sizeof(char));
+				prefix = mallocVerified((PREF_MAX_SIZE+1), sizeof(char));
 				scanf("%s", prefix);
 				DeletePrefix(node, prefix);
 				free(prefix);

@@ -5,7 +5,7 @@ int main(int argc, char const *argv[])
 	// Last argument is the file to read from
 	char const * file = argv[argc-1];
 	Node *root = PrefixTree(file);
-	Node *aux = root;
+
 	if(root != NULL)	
 		menu(root);
 	//PrintTree(root, "", "");
@@ -16,7 +16,7 @@ int main(int argc, char const *argv[])
 
 	printf("-----------------------------------------\n");
 	PrintTree(root, "", "");*/
-	if(root != NULL)
-		freeTree(aux);
+	
+	freeTree(root);
 	return 0;
 }

@@ -66,19 +66,21 @@ Node* PrefixTree(char const * file){
 
 void PrintTable(Node *node){
 
-	if (node == NULL || prefixIndex >= PREF_MAX_SIZE)
+	Node *aux = node;
+
+	if (aux == NULL || prefixIndex >= PREF_MAX_SIZE)
 		return;
 
-	if(getValue(node) != NO_HOP)
-		PrintPrefix(getValue(node));
+	if(getValue(aux) != NO_HOP)
+		PrintPrefix(getValue(aux));
 
 	prefixMap[++prefixIndex] = LEFT;
-	PrintTable(getLeft(node));
+	PrintTable(getLeft(aux));
 	prefixMap[prefixIndex--] = NO_HOP;
 
 
 	prefixMap[++prefixIndex] = RIGHT;
-	PrintTable(getRight(node));
+	PrintTable(getRight(aux));
 	prefixMap[prefixIndex--] = NO_HOP;
 
 }
@@ -178,6 +180,7 @@ void DeletePrefix(Node *root, char *prefix){
 		else
 			aux = getRight(aux);
 	}
+
 	if(getRight(aux) == NULL && getLeft(aux) == NULL)
 		free(aux);
 	else
