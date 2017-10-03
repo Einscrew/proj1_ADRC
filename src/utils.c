@@ -36,7 +36,8 @@ void menu(Node *node){
 		switch(option){
 
 			case 1: 
-				PrintTable(node);
+				//PrintTable(node);
+				PrintTree(node, "", "");
 				printf("SAIU DO PRINTTABLE\n");
 
 				break;
@@ -67,7 +68,6 @@ void menu(Node *node){
 				free(prefix);
 				break;
 			case 5:
-				freeTree(node);
 				return;
 				break;
 			default:
@@ -128,3 +128,4 @@ void * mallocVerified(int number, int size){
 	}
 	return ptr;
 }
+

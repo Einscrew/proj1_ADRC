@@ -15,5 +15,6 @@ void InsertPrefix(char* prefix, int nextHop, int prefixLength, Node *node, int i
 void DeletePrefix(Node * root, char * prefix);
 void PrintPrefix(int hop);
 
+void PrintTree(Node *node, char *str1, char *str2);
 
 #endif
