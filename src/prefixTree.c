@@ -302,7 +302,7 @@ void PrintTree(Node *node, char *str1, char *str2){
 	PrintTree(getLeft(node), aux, "0");
 	PrintTree(getRight(node), aux, "1");
 
-	if(getValue(node) != -1)
+	if(getValue(node) != -1 &&getValue(node) != -2)
 		printf("%s >%d\n",aux, getValue(node));
 
 	free(aux);
