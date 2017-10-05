@@ -9,13 +9,14 @@
 
 
 Node* PrefixTree(char const * file);
-void PrintTable(Node *node);
+void PrintTable(Node *node, char *str1, char *str2);
 int LookUp(Node * node, char * address);
 void InsertPrefix(char* prefix, int nextHop, int prefixLength, Node *node, int index);
 void DeletePrefix(Node * root, char*prefix);
 int deleteP(Node *node, char *prefix, int index, int prefixLength);
 void PrintPrefix(int hop);
 
-void PrintTree(Node *node, char *str1, char *str2);
+
+//void PrintTable(Node *node);
 
 #endif

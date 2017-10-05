@@ -26,7 +26,6 @@ void menu(Node *node){
 	showMenu();
 	while(option != 5){
 		
-		
 		option = 0;
 		scanf("%d", &option);
 
@@ -36,14 +35,17 @@ void menu(Node *node){
 
 			case 1: 
 				//PrintTable(node);
-				PrintTree(node, "", "");
+				PrintTable(node, "", "");
 				break;
 			case 2:
 				printf("Enter an address to search: \n");
 				address = (char*)mallocVerified((PREF_MAX_SIZE+1), sizeof(char));
 				scanf("%s", address);
 				nextHop = LookUp(node, address);
-				printf("\nNext Hop: %d\n", nextHop);
+				if(nextHop != NO_HOP && nextHop != -2)
+					printf("\nNext Hop: %d\n", nextHop);
+				else
+					printf("\nThere's no next-hop for that address\n");
 				free(address);
 				break;
 			case 3:
