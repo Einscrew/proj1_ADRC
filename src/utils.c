@@ -26,24 +26,21 @@ void menu(Node *node){
 	showMenu();
 	while(option != 5){
 		
-		printf(" OPTION _____ANTES_____ %d\n", option);
+		
 		option = 0;
 		scanf("%d", &option);
 
 		system("clear");
-		printf(" OPTION _______________ %d\n", option);
 
 		switch(option){
 
 			case 1: 
 				//PrintTable(node);
 				PrintTree(node, "", "");
-				printf("SAIU DO PRINTTABLE\n");
-
 				break;
 			case 2:
 				printf("Enter an address to search: \n");
-				address = mallocVerified((PREF_MAX_SIZE+1), sizeof(char));
+				address = (char*)mallocVerified((PREF_MAX_SIZE+1), sizeof(char));
 				scanf("%s", address);
 				nextHop = LookUp(node, address);
 				printf("\nNext Hop: %d\n", nextHop);
@@ -61,7 +58,7 @@ void menu(Node *node){
 				break;
 			case 4:
 				printf("Enter the prefix to delete: \n");
-				prefix = mallocVerified((PREF_MAX_SIZE+1), sizeof(char));
+				prefix = mallocVerified((PREF_MAX_SIZE+2), sizeof(char));
 				scanf("%s", prefix);
 				DeletePrefix(node, prefix);
 				free(prefix);

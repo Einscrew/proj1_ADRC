@@ -1,9 +1,6 @@
 #include "trees.h"
 
-struct _Node{
-	int value;
-	struct _Node *left, *right;
-};
+
 
 /******************************************************************************************
  * allocNode()
@@ -92,7 +89,7 @@ void setRight(Node *node, int num){
 	if(node->right == NULL)
 		node->right=newNode(num);
 	else
-		setValue(&node->right, num);
+		setValue(node->right, num);
 }
 
 /******************************************************************************************
@@ -110,7 +107,7 @@ void setLeft(Node * node, int num){
 	if(node->left == NULL)
 		node->left=newNode(num);
 	else
-		setValue(&node->left, num);
+		setValue(node->left, num);
 }
 
 /******************************************************************************************
@@ -123,8 +120,10 @@ void setLeft(Node * node, int num){
  *
  ******************************************************************************************/
 
-void setValue(Node **node, int num){
-	(*node)->value = num;
+void setValue(Node *node, int num){
+	if(node == NULL)
+		return;
+	node->value = num;
 }
 
 /******************************************************************************************

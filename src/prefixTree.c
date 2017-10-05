@@ -4,7 +4,10 @@
 #define PREF_MAX_SIZE 16
 #define LINE 20
 #define NO_HOP -1
-#define DEFAULT -2
+int DEFAULT =-2;
+
+#define RETURN 0
+#define ERASE 1
 
 #define RIGHT 1
 #define LEFT 0
@@ -31,7 +34,7 @@ Node* PrefixTree(char const * file){
 	char line[LINE];
 	char prefix[PREF_MAX_SIZE];
 	int nextHop = 0;
-	Node *root = newNode(NO_HOP);
+	Node *root = newNode(DEFAULT);
 
 	if(ptr == NULL)
 	{
@@ -103,16 +106,27 @@ int LookUp(Node *root, char *address){
 	Node *aux = root;
 	int ret = -1;
 	int i = 0;
+	int addrlen = strlen(address);
 
-	while(aux != NULL){
+	
+	while(aux != NULL && i<=addrlen){
 
-		if(getValue(aux)!= NO_HOP)
+		if(getValue(aux)!= NO_HOP && getValue(aux) != DEFAULT && i == addrlen){
 			ret = getValue(aux);
-
-		if(address[i++] == '0')
+			break;
+		}
+		else if(address[i] == '0'){
 			aux = getLeft(aux);
-		else
+		}
+		else if(address[i] == '1'){
 			aux = getRight(aux);
+		}
+		else if(address[i] != '\0'){
+			ret = -1;
+			break;
+		}
+
+		i++;
 	}
 
 	return ret;
@@ -150,10 +164,44 @@ void InsertPrefix(char *prefix, int nextHop, int prefixLength, Node *node, int i
 		}
 	}
 	else
-		setValue(&node, nextHop);
+		setValue(node, nextHop);
 
 }
 
+
+void DeletePrefix(Node * root, char*prefix){
+	int prefixLength = strlen(prefix);
+
+	for (int i = 0; i < strlen(prefix); ++i){
+		if (!(prefix[i] == '0' || prefix[i] == '1')){
+			printf(">Invalid Prefix\n");
+			return;
+		}
+	}
+	if(prefix[0] == '0'){
+		if(deleteP(root->left, prefix, 0, prefixLength) == ERASE){
+			root->left = NULL;
+		}
+	}
+	else{
+		if(deleteP(root->right, prefix, 0, prefixLength) == ERASE){
+			root->right = NULL;
+		}
+	}
+}
+
+int Erase(Node** node){
+	//printf("ERASEDDD: %d\n", getValue(node));
+	if(getRight(*node) != NULL || getLeft(*node) != NULL){
+		setValue(*node, NO_HOP);
+		return RETURN;
+	}
+
+	else{
+		free(*node);
+		return ERASE;
+	}
+}
 /**********************************************************************************************
  * DeletePrefix()
  *
@@ -166,25 +214,52 @@ void InsertPrefix(char *prefix, int nextHop, int prefixLength, Node *node, int i
  * the next hop is changed to NO_HOP
  *
  **********************************************************************************************/
+int deleteP(Node *node, char *prefix, int index, int prefixLength){
+	int ret = RETURN;
+	if(node == NULL){
+		printf("Prefix not found\n");
+		return RETURN;
+	}
+	printf("interation:%d - %c\n", index,  prefix[index]);
 
-void DeletePrefix(Node *root, char *prefix){
-	// If the node to remove has no childs, then it can be erases,
-	// but if it does, only the nextHop is changed
-	Node * aux = root;
-	int i = 0;
-	int prefixLength = strlen(prefix);
-
-	while(i < prefixLength){
-		if( prefix[i++] == '0')
-			aux = getLeft(aux);
+	if(index+1 == prefixLength && getValue(node) != DEFAULT){
+		if(Erase(&node)){
+			//free(node);
+			return ERASE;
+		}
 		else
-			aux = getRight(aux);
+			return RETURN;
 	}
 
-	if(getRight(aux) == NULL && getLeft(aux) == NULL)
-		free(aux);
+
+	if(prefix[index+1] == '0'){
+		Node * left = getLeft(node);
+		ret = deleteP(left, prefix, index+1, prefixLength);
+		if(ret == ERASE){
+			//free(node->left);
+			node->left = NULL;
+		}
+	}
+	else if(prefix[index+1] == '1'){
+		Node * right=getRight(node); 
+		ret = deleteP(right, prefix, index+1, prefixLength);
+		if(ret == ERASE){
+			//free(node->right);
+			node->right = NULL;
+		}
+	}
+	else{
+		printf("Invalid Prefix\n");
+		return RETURN;
+	}
+
+	if(ret == ERASE && getValue(node)==NO_HOP && getRight(node) == NULL && getLeft(node) == NULL){
+		printf("parent erased\n");
+		free(node);
+		return ERASE;
+	}
 	else
-		setValue(&aux, NO_HOP);
+		return RETURN;
 }
 
 /******************************************************************************************
