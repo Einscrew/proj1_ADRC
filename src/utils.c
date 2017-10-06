@@ -123,10 +123,12 @@ int checkPrefix(char *prefix){
 
 	int i = 0;
 
-	for(i=0; i <= strlen(prefix); i++){
-		if(prefix[i] != 0 || prefix[i] != 1)
+
+	for(i=0; i < strlen(prefix); i++){
+		if(prefix[i] != '0' && prefix[i] != '1')
 			return NOT_VALID;
 	}
+
 
 	if(i > PREF_MAX_SIZE)
 		return NOT_VALID;
