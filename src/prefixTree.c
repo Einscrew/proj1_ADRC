@@ -1,22 +1,5 @@
 #include "prefixTree.h"
 
-#define FICH "t.txt"
-#define PREF_MAX_SIZE 16
-#define LINE 20
-#define NO_HOP -1
-int DEFAULT =-2;
-
-#define RETURN 0
-#define ERASE 1
-
-#define RIGHT 1
-#define LEFT 0
-#define REMOVE -3
-
-int prefixMap[PREF_MAX_SIZE] = {NO_HOP};
-int prefixIndex = -1;
-
-
 /******************************************************************************************
  * PrefixTree(file)
  *
@@ -57,10 +40,10 @@ Node* PrefixTree(char const *file){
  * PrintTable()
  *
  * Arguments: node - pointer to a tree node
- *			  str1 - 
+ *			  str1 and str2 - auxiliar strings that hold the prefix to print
  *
  * Returns: (void)
- * Side-Effects: prints a prefix table having a prefix tree as a input
+ * Side-Effects: prints a prefix table having a prefix tree as an input
  *
  * Description: giving the root tree, all the nodes of that tree are visited, recursively, 
  * and the prefix at each node is kept in order to print a prefix, if there is a next hop 
@@ -76,6 +59,7 @@ void PrintTable(Node *node, char *str1, char *str2){
 		return;
 
 	char *aux = mallocVerified(strlen(str1)+strlen(str2) +1, sizeof(char*));
+
 	for(i=0; i < strlen(str1)+strlen(str2) + 1 ; i++)
 		aux[i] = '\0';
 	
@@ -114,22 +98,20 @@ int LookUp(Node *root, char *address){
 
 	while(aux != NULL && i<=addrlen){
 
-		if(getValue(aux) != NO_HOP && getValue(aux) != DEFAULT /*&& i == addrlen*/){
+		if(getValue(aux) != NO_HOP && getValue(aux) != DEFAULT){
 			nextHop = getValue(aux);
-			if(i== addrlen)
+			if(i == addrlen)
 				break;
 		}
-		/*else*/ if(address[i] == '0'){
+		
+		if(address[i] == '0'){
 			aux = getLeft(aux);
 		}
 		else if(address[i] == '1')
 			aux = getRight(aux);
-		else if(address[i] != '\0'){
-			if(nextHop < 0)
-				nextHop = -1;
+		else
+			nextHop = NOT_VALID;
 			break;
-		}
-
 		i++;
 	}
 
@@ -311,7 +293,7 @@ int deleteP(Node *node, char *prefix, int index, int prefixLength){
  *
  ******************************************************************************************/
 
-void PrintPrefix(int hop){
+/*void PrintPrefix(int hop){
 
 	int i = 0;
 	
@@ -322,7 +304,7 @@ void PrintPrefix(int hop){
 	if(prefixIndex >= 0){
 		printf("  >%d\n",hop );
 	}
-}
+}*/
 
 /*void PrintTable(Node *node){
 

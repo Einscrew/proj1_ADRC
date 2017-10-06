@@ -6,6 +6,16 @@
 #define _PREF_
 
 #define NO_HOP -1
+#define PREF_MAX_SIZE 16
+#define LINE 20
+#define DEFAULT -2
+
+#define RETURN 0
+#define ERASE 1
+
+#define RIGHT 1
+#define LEFT 0
+#define REMOVE -3
 
 
 Node* PrefixTree(char const * file);
@@ -14,9 +24,9 @@ int LookUp(Node * node, char * address);
 void InsertPrefix(char* prefix, int nextHop, int prefixLength, Node *node, int index);
 void DeletePrefix(Node * root, char*prefix);
 int deleteP(Node *node, char *prefix, int index, int prefixLength);
-void PrintPrefix(int hop);
 
 
+//void PrintPrefix(int hop);
 //void PrintTable(Node *node);
 
 #endif

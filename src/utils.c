@@ -1,9 +1,5 @@
 #include "utils.h"
 
-#define PREF_MAX_SIZE 16
-#define NOT_VALID 0
-#define VALID 1
-
 /******************************************************************************************
  * menu()
  *
@@ -42,23 +38,25 @@ void menu(Node *node){
 				break;
 			case 2:
 				printf("Enter an address to search: \n");
-				address = (char*)mallocVerified((PREF_MAX_SIZE+1), sizeof(char));
+				address = (char*)mallocVerified((PREF_MAX_SIZE+8), sizeof(char));
 				scanf("%s", address);
 				nextHop = LookUp(node, address);
-				if(nextHop != NO_HOP && nextHop != -2)
+				if(nextHop != NO_HOP && nextHop != DEFAULT && nextHop != NOT_VALID)
 					printf("\nNext Hop: %d\n", nextHop);
+				else if(nextHop == NOT_VALID)
+					printf("\nAddress is not valid. Please enter a valid address and get the next-hop\n");
 				else
 					printf("\nThere's no next-hop for that address\n");
 				free(address);
 				break;
 			case 3:
 				printf("Enter a new prefix and, after a space, the associated next hop: \n");
-				prefix = mallocVerified((PREF_MAX_SIZE+1), sizeof(char));
+				prefix = mallocVerified((PREF_MAX_SIZE+8), sizeof(char));
 				scanf("%s %d", prefix, &nextHop);
 				printf("\n%s %d\n", prefix, nextHop);
 				check = checkPrefix(prefix);
 				printf("\nCheck: %d\n", check);
-				if(check == 1)
+				if(check == VALID)
 					InsertPrefix(prefix, nextHop, strlen(prefix), node, 0);
 				else
 					printf("\nPrefix is not valid. Please insert a valid prefix.\n");
@@ -66,7 +64,7 @@ void menu(Node *node){
 				break;
 			case 4:
 				printf("Enter the prefix to delete: \n");
-				prefix = mallocVerified((PREF_MAX_SIZE+2), sizeof(char));
+				prefix = mallocVerified((PREF_MAX_SIZE+8), sizeof(char));
 				scanf("%s", prefix);
 				DeletePrefix(node, prefix);
 				free(prefix);
@@ -123,12 +121,10 @@ int checkPrefix(char *prefix){
 
 	int i = 0;
 
-
 	for(i=0; i < strlen(prefix); i++){
 		if(prefix[i] != '0' && prefix[i] != '1')
 			return NOT_VALID;
 	}
-
 
 	if(i > PREF_MAX_SIZE)
 		return NOT_VALID;
