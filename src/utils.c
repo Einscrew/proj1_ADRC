@@ -1,6 +1,8 @@
 #include "utils.h"
 
 #define PREF_MAX_SIZE 16
+#define NOT_VALID 0
+#define VALID 1
 
 /******************************************************************************************
  * menu()
@@ -21,6 +23,7 @@ void menu(Node *node){
 	int nextHop = NO_HOP;
 	char *address = NULL;
 	char *prefix = NULL;
+	int check = 0;
 
 
 	showMenu();
@@ -53,10 +56,13 @@ void menu(Node *node){
 				prefix = mallocVerified((PREF_MAX_SIZE+1), sizeof(char));
 				scanf("%s %d", prefix, &nextHop);
 				printf("\n%s %d\n", prefix, nextHop);
-				checkPrefix(prefix);
-				InsertPrefix(prefix, nextHop, strlen(prefix), node, 0);
+				check = checkPrefix(prefix);
+				printf("\nCheck: %d\n", check);
+				if(check == 1)
+					InsertPrefix(prefix, nextHop, strlen(prefix), node, 0);
+				else
+					printf("\nPrefix is not valid. Please insert a valid prefix.\n");
 				free(prefix);
-				prefix = NULL;
 				break;
 			case 4:
 				printf("Enter the prefix to delete: \n");
@@ -113,8 +119,19 @@ void showMenu(){
  ******************************************************************************************/
 
 
-int checkPrefix(char * prefix){
-	return strlen(prefix) <= 16 ? 1 : 0;
+int checkPrefix(char *prefix){
+
+	int i = 0;
+
+	for(i=0; i <= strlen(prefix); i++){
+		if(prefix[i] != 0 || prefix[i] != 1)
+			return NOT_VALID;
+	}
+
+	if(i > PREF_MAX_SIZE)
+		return NOT_VALID;
+	else
+		return VALID;
 }
 
 /******************************************************************************************
