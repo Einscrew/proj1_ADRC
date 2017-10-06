@@ -18,17 +18,17 @@ int prefixIndex = -1;
 
 
 /******************************************************************************************
- * PrefixTree(char* file)
+ * PrefixTree(file)
  *
- * Arguments: file - file where to read prefixes from
+ * Arguments: file - file that contains the prefixes of the tree
  * Returns: root tree
  * Side-Effects: builds the tree through the file given
  *
- * Description: reads a file line by line and constructs the tree according to th file
+ * Description: reads a file line by line and constructs the tree according to the file
  *
  ******************************************************************************************/
 
-Node* PrefixTree(char const * file){
+Node* PrefixTree(char const *file){
 
 	FILE* ptr = fopen(file, "r");
 	char line[LINE];
@@ -57,6 +57,7 @@ Node* PrefixTree(char const * file){
  * PrintTable()
  *
  * Arguments: node - pointer to a tree node
+ *			  str1 - 
  *
  * Returns: (void)
  * Side-Effects: prints a prefix table having a prefix tree as a input
@@ -67,24 +68,27 @@ Node* PrefixTree(char const * file){
  *
  ******************************************************************************************/
 
-void PrintTable(Node *node){
+void PrintTable(Node *node, char *str1, char *str2){
 
-	Node *aux = node;
+	int i=0;
 
-	if (aux == NULL || prefixIndex >= PREF_MAX_SIZE)
+	if(node == NULL)
 		return;
 
-	if(getValue(aux) != NO_HOP)
-		PrintPrefix(getValue(aux));
+	char *aux = mallocVerified(strlen(str1)+strlen(str2) +1, sizeof(char*));
+	for(i=0; i < strlen(str1)+strlen(str2) + 1 ; i++)
+		aux[i] = '\0';
+	
+	strcat(aux, str1);
+	strcat(aux, str2);
 
-	prefixMap[++prefixIndex] = LEFT;
-	PrintTable(getLeft(aux));
-	prefixMap[prefixIndex--] = NO_HOP;
+	PrintTable(getLeft(node), aux, "0");
+	PrintTable(getRight(node), aux, "1");
 
+	if(getValue(node) != -1 && getValue(node) != DEFAULT)
+		printf("%s >%d\n", aux, getValue(node));
 
-	prefixMap[++prefixIndex] = RIGHT;
-	PrintTable(getRight(aux));
-	prefixMap[prefixIndex--] = NO_HOP;
+	free(aux);
 
 }
 
@@ -104,32 +108,32 @@ void PrintTable(Node *node){
 int LookUp(Node *root, char *address){
 
 	Node *aux = root;
-	int ret = -1;
+	int nextHop = -1;
 	int i = 0;
 	int addrlen = strlen(address);
 
-	
 	while(aux != NULL && i<=addrlen){
 
-		if(getValue(aux)!= NO_HOP && getValue(aux) != DEFAULT && i == addrlen){
-			ret = getValue(aux);
-			break;
+		if(getValue(aux) != NO_HOP && getValue(aux) != DEFAULT /*&& i == addrlen*/){
+			nextHop = getValue(aux);
+			if(i== addrlen)
+				break;
 		}
-		else if(address[i] == '0'){
+		/*else*/ if(address[i] == '0'){
 			aux = getLeft(aux);
 		}
-		else if(address[i] == '1'){
+		else if(address[i] == '1')
 			aux = getRight(aux);
-		}
 		else if(address[i] != '\0'){
-			ret = -1;
+			if(nextHop < 0)
+				nextHop = -1;
 			break;
 		}
 
 		i++;
 	}
 
-	return ret;
+	return nextHop;
 }
 
 /******************************************************************************************
@@ -168,40 +172,6 @@ void InsertPrefix(char *prefix, int nextHop, int prefixLength, Node *node, int i
 
 }
 
-
-void DeletePrefix(Node * root, char*prefix){
-	int prefixLength = strlen(prefix);
-
-	for (int i = 0; i < strlen(prefix); ++i){
-		if (!(prefix[i] == '0' || prefix[i] == '1')){
-			printf(">Invalid Prefix\n");
-			return;
-		}
-	}
-	if(prefix[0] == '0'){
-		if(deleteP(root->left, prefix, 0, prefixLength) == ERASE){
-			root->left = NULL;
-		}
-	}
-	else{
-		if(deleteP(root->right, prefix, 0, prefixLength) == ERASE){
-			root->right = NULL;
-		}
-	}
-}
-
-int Erase(Node** node){
-	//printf("ERASEDDD: %d\n", getValue(node));
-	if(getRight(*node) != NULL || getLeft(*node) != NULL){
-		setValue(*node, NO_HOP);
-		return RETURN;
-	}
-
-	else{
-		free(*node);
-		return ERASE;
-	}
-}
 /**********************************************************************************************
  * DeletePrefix()
  *
@@ -214,12 +184,79 @@ int Erase(Node** node){
  * the next hop is changed to NO_HOP
  *
  **********************************************************************************************/
+
+void DeletePrefix(Node *root, char *prefix){
+
+	int i = 0;
+	int prefixLength = strlen(prefix);
+
+	for (i = 0; i < strlen(prefix); i++){
+
+		if (!(prefix[i] == '0' || prefix[i] == '1')){
+			printf(">Invalid Prefix\n");
+			return;
+		}
+	}
+	if(prefix[0] == '0'){
+		if(deleteP(root->left, prefix, 0, prefixLength) == ERASE)
+			root->left = NULL;
+	}
+	else{
+		if(deleteP(root->right, prefix, 0, prefixLength) == ERASE)
+			root->right = NULL;
+	}
+}
+
+/**********************************************************************************************
+ * Erase()
+ *
+ * Arguments: node - pointer to a node from the tree
+ *			  
+ * Returns: if node was deleted or not from the tree
+ * Side-Effects: deletes a node from the tree
+ *
+ * Description: this is an auxiliar function to delete a node from the tree if the node could
+ * be deleted
+ *
+ **********************************************************************************************/
+
+int Erase(Node **node){
+	//printf("ERASEDDD: %d\n", getValue(node));
+	if(getRight(*node) != NULL || getLeft(*node) != NULL){
+		setValue(*node, NO_HOP);
+		return RETURN;
+	}
+	else{
+		free(*node);
+		return ERASE;
+	}
+}
+
+/*****************************************************************************************************
+ * deleteP()
+ *
+ * Arguments: node - pointer to a node from the tree
+ *			  prefix - prefix to delete
+ *			  index - index to iterate the prefix
+ *			  prefixLength - size of the prefix to delete
+ *			  
+ * Returns: if node could be deleted or not from the tree
+ * Side-Effects: analises all the tree in order to delete a prefix
+ *
+ * Description: this function analises all nodes starting at the root to the prefix to be deleted in 
+ * order to know if there are more nodes that could be erased 
+ *
+ *****************************************************************************************************/
+
 int deleteP(Node *node, char *prefix, int index, int prefixLength){
+
 	int ret = RETURN;
+
 	if(node == NULL){
 		printf("Prefix not found\n");
 		return RETURN;
 	}
+
 	printf("interation:%d - %c\n", index,  prefix[index]);
 
 	if(index+1 == prefixLength && getValue(node) != DEFAULT){
@@ -241,7 +278,7 @@ int deleteP(Node *node, char *prefix, int index, int prefixLength){
 		}
 	}
 	else if(prefix[index+1] == '1'){
-		Node * right=getRight(node); 
+		Node *right = getRight(node); 
 		ret = deleteP(right, prefix, index+1, prefixLength);
 		if(ret == ERASE){
 			//free(node->right);
@@ -253,8 +290,8 @@ int deleteP(Node *node, char *prefix, int index, int prefixLength){
 		return RETURN;
 	}
 
-	if(ret == ERASE && getValue(node)==NO_HOP && getRight(node) == NULL && getLeft(node) == NULL){
-		printf("parent erased\n");
+	if(ret == ERASE && getValue(node) == NO_HOP && getRight(node) == NULL && getLeft(node) == NULL){
+		printf("Parent erased\n");
 		free(node);
 		return ERASE;
 	}
@@ -287,27 +324,26 @@ void PrintPrefix(int hop){
 	}
 }
 
-void PrintTree(Node *node, char *str1, char *str2){
+/*void PrintTable(Node *node){
 
-	if(node == NULL)
+	Node *aux = node;
+
+	if (aux == NULL || prefixIndex >= PREF_MAX_SIZE)
 		return;
 
-	char * aux = mallocVerified(strlen(str1)+strlen(str2) +1, sizeof(char*));
-	for(int i=0; i < strlen(str1)+strlen(str2) + 1 ; i++)
-		aux[i] = '\0';
-	
-	strcat(aux, str1);
-	strcat(aux, str2);
+	if(getValue(aux) != NO_HOP)
+		PrintPrefix(getValue(aux));
 
-	PrintTree(getLeft(node), aux, "0");
-	PrintTree(getRight(node), aux, "1");
+	prefixMap[++prefixIndex] = LEFT;
+	PrintTable(getLeft(aux));
+	prefixMap[prefixIndex--] = NO_HOP;
 
-	if(getValue(node) != -1)
-		printf("%s >%d\n",aux, getValue(node));
 
-	free(aux);
+	prefixMap[++prefixIndex] = RIGHT;
+	PrintTable(getRight(aux));
+	prefixMap[prefixIndex--] = NO_HOP;
 
-}
+}*/
 
 
 
