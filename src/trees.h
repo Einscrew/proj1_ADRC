@@ -13,7 +13,6 @@ struct _Node{
 typedef struct _Node Node;
 
 
-
 Node *allocNode();
 Node *newNode(int num);
 Node *getRight(Node *node);

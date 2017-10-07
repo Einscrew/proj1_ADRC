@@ -25,7 +25,7 @@ void menu(Node *node){
 	showMenu();
 	while(option != 5){
 		
-		option = 0;
+		//option = 0;
 		scanf("%d", &option);
 
 		system("clear");
@@ -33,7 +33,6 @@ void menu(Node *node){
 		switch(option){
 
 			case 1: 
-				//PrintTable(node);
 				PrintTable(node, "", "");
 				break;
 			case 2:
