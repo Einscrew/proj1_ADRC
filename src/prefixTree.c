@@ -69,7 +69,7 @@ void PrintTable(Node *node, char *str1, char *str2){
 	PrintTable(getLeft(node), aux, "0");
 	PrintTable(getRight(node), aux, "1");
 
-	if(getValue(node) != -1 && getValue(node) != DEFAULT)
+	if(getValue(node) != NO_HOP && getValue(node) != DEFAULT)
 		printf("%s >%d\n", aux, getValue(node));
 
 	free(aux);
