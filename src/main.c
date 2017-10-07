@@ -8,13 +8,6 @@ int main(int argc, char const *argv[])
 
 	if(root != NULL)	
 		menu(root);
-	//PrintTree(root, "", "");
-	//DeletePrefix(root, "1");
-	/*InsertPrefix("1111000011110000", 13, 16, root, 0);
-	printf("-----------------------------------------\n");
-	PrintTree(root, "", "");
-	printf("-----------------------------------------\n");
-	PrintTree(root, "", "");*/
 	
 	freeTree(root);
 	return 0;
