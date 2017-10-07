@@ -109,9 +109,11 @@ int LookUp(Node *root, char *address){
 		}
 		else if(address[i] == '1')
 			aux = getRight(aux);
-		else
+		else{
 			nextHop = NOT_VALID;
 			break;
+		}
+			
 		i++;
 	}
 
