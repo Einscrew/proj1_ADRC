@@ -69,8 +69,13 @@ void PrintTable(Node *node, char *str1, char *str2){
 	PrintTable(getLeft(node), aux, "0");
 	PrintTable(getRight(node), aux, "1");
 
-	if(getValue(node) != NO_HOP && getValue(node) != DEFAULT)
-		printf("%s >%d\n", aux, getValue(node));
+	if(getValue(node) != NO_HOP && getValue(node) != DEFAULT){
+		printf("%s ", aux);
+		for(i = strlen(aux); i < 18; i++){
+			printf(" ");
+		}
+		printf(">  %d\n", getValue(node));	
+	}
 
 	free(aux);
 
