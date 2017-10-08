@@ -13,6 +13,20 @@
  *
  ******************************************************************************************/
 
+int scanOption(){
+	int option;
+	option = (int)getchar();
+	while(option < '1' || option > '5'){
+			
+		printf("Please select a number to the corresponted operation\n");
+		option = (int)getchar();
+		system("clear");
+	}
+
+	return option -'0';
+
+}
+
 void menu(Node *node){
 
 	int option = 0;
@@ -26,9 +40,9 @@ void menu(Node *node){
 	while(option != 5){
 		
 		//option = 0;
-		scanf("%d", &option);
+		option=scanOption();
 
-		system("clear");
+		//system("clear");
 
 		switch(option){
 
