@@ -13,20 +13,6 @@
  *
  ******************************************************************************************/
 
-int scanOption(){
-	int option;
-	option = (int)getchar();
-	while(option < '1' || option > '5'){
-			
-		printf("Please select a number to the corresponted operation\n");
-		option = (int)getchar();
-		system("clear");
-	}
-
-	return option -'0';
-
-}
-
 void menu(Node *node){
 
 	int option = 0;
@@ -39,11 +25,9 @@ void menu(Node *node){
 	showMenu();
 	while(option != 5){
 		
-		//option = 0;
+		
 		option=scanOption();
-
-		//system("clear");
-
+		system("clear");
 		switch(option){
 
 			case 1: 
@@ -53,22 +37,24 @@ void menu(Node *node){
 				printf("Enter an address to search: \n");
 				address = (char*)mallocVerified((PREF_MAX_SIZE+8), sizeof(char));
 				scanf("%s", address);
-				nextHop = LookUp(node, address);
-				if(nextHop != NO_HOP && nextHop != DEFAULT && nextHop != NOT_VALID)
-					printf("\nNext Hop: %d\n", nextHop);
-				else if(nextHop == NOT_VALID)
-					printf("\nAddress is not valid. Please enter a valid address and get the next-hop\n");
+				if(checkPrefix(address) == VALID){
+					nextHop = LookUp(node, address);
+					if(nextHop != NO_HOP && nextHop != DEFAULT && nextHop != NOT_VALID)
+						printf("\nNext Hop: %d\n", nextHop);
+					else if(nextHop == NOT_VALID)
+						printf("\nAddress is not valid. Please enter a valid address and get the next-hop\n");
+					else
+						printf("\nThere's no next-hop for that address\n");
+				}
 				else
-					printf("\nThere's no next-hop for that address\n");
+					printf("\nAddress is not valid. Please enter a valid address and get the next-hop\n");
 				free(address);
 				break;
 			case 3:
 				printf("Enter a new prefix and, after a space, the associated next hop: \n");
 				prefix = mallocVerified((PREF_MAX_SIZE+8), sizeof(char));
 				scanf("%s %d", prefix, &nextHop);
-				printf("\n%s %d\n", prefix, nextHop);
 				check = checkPrefix(prefix);
-				printf("\nCheck: %d\n", check);
 				if(check == VALID)
 					InsertPrefix(prefix, nextHop, strlen(prefix), node, 0);
 				else
@@ -142,6 +128,33 @@ int checkPrefix(char *prefix){
 		return NOT_VALID;
 	else
 		return VALID;
+}
+
+
+/******************************************************************************************
+ * scanOption()
+ *
+ * Arguments: -
+ *			 
+ * Returns: (int)
+ * Side-Effects: -
+ *
+ * Description: Used to get a valid menu option from the user
+ * 
+ *
+ ******************************************************************************************/
+
+int scanOption(){
+	int option;
+	option = (int)getchar();
+	while(option < '1' || option > '5'){
+			
+		printf("Please select a number to the corresponted operation\n");
+		option = (int)getchar();
+	}
+
+	return option -'0';
+
 }
 
 /******************************************************************************************
