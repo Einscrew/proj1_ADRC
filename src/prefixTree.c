@@ -195,7 +195,7 @@ void DeletePrefix(Node *root, char *prefix){
 	for (i = 0; i < strlen(prefix); i++){
 
 		if (!(prefix[i] == '0' || prefix[i] == '1')){
-			printf(">Invalid Prefix\n");
+			printf("\n> Invalid Prefix\n");
 			return;
 		}
 	}
@@ -255,7 +255,7 @@ int deleteP(Node *node, char *prefix, int index, int prefixLength){
 	int ret = RETURN;
 
 	if(node == NULL){
-		printf("Prefix not found\n");
+		printf("\nPrefix not found\n");
 		return RETURN;
 	}
 
@@ -282,7 +282,7 @@ int deleteP(Node *node, char *prefix, int index, int prefixLength){
 			node->right = NULL;
 	}
 	else{
-		printf("Invalid Prefix\n");
+		printf("\nInvalid Prefix\n");
 		return RETURN;
 	}
 

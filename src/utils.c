@@ -155,12 +155,9 @@ int checkPrefix(char *prefix){
 int scanOption(){
 	int option;
 	option = (int)getchar();
-	while(option < '1' || option > '5'){
-			
-		printf("Please select a number to the corresponted operation\n");
+	while(option < '1' || option > '5')
 		option = (int)getchar();
-	}
-
+	
 	return option -'0';
 
 }
