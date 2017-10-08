@@ -1,3 +1,11 @@
+/****************************************************************************************************
+*
+* This file has the menu function that is presented to user with all options available.
+* It also has functions to check if the user put correct inputs or not and to verify if memory was
+* allocated correctly.
+*
+*****************************************************************************************************/
+
 #include "utils.h"
 
 /******************************************************************************************

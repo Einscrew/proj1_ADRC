@@ -1,7 +1,20 @@
+/****************************************************************************************************
+*
+* This file has functions that preform all tasks available to users.
+* PrefixTree receives a file as input and translate it into a prefix tree.
+* PrintTable prints a prefix table receiving as input a prefix tree.
+* LookUp checks what is the next-hop of an address given by user.
+* InsertPrefix inserts a new prefix in the tree and the correspondent next-hop.
+* DeletePrefix deletes a prefix from the tree given by user.
+* There are also two more functions: deleteP and Erase. These functions are called when DeletePrefix 
+* is called.
+* 
+*****************************************************************************************************/
+
 #include "prefixTree.h"
 
 /******************************************************************************************
- * PrefixTree(file)
+ * PrefixTree()
  *
  * Arguments: file - file that contains the prefixes of the tree
  * Returns: root tree
@@ -210,7 +223,7 @@ void DeletePrefix(Node *root, char *prefix){
  **********************************************************************************************/
 
 int Erase(Node **node){
-	//printf("ERASEDDD: %d\n", getValue(node));
+	
 	if(getRight(*node) != NULL || getLeft(*node) != NULL){
 		setValue(*node, NO_HOP);
 		return RETURN;
@@ -249,30 +262,24 @@ int deleteP(Node *node, char *prefix, int index, int prefixLength){
 	printf("interation:%d - %c\n", index,  prefix[index]);
 
 	if(index+1 == prefixLength && getValue(node) != DEFAULT){
-		if(Erase(&node)){
-			//free(node);
+		if(Erase(&node))
 			return ERASE;
-		}
 		else
 			return RETURN;
 	}
 
 
 	if(prefix[index+1] == '0'){
-		Node * left = getLeft(node);
+		Node *left = getLeft(node);
 		ret = deleteP(left, prefix, index+1, prefixLength);
-		if(ret == ERASE){
-			//free(node->left);
+		if(ret == ERASE)
 			node->left = NULL;
-		}
 	}
 	else if(prefix[index+1] == '1'){
 		Node *right = getRight(node); 
 		ret = deleteP(right, prefix, index+1, prefixLength);
-		if(ret == ERASE){
-			//free(node->right);
+		if(ret == ERASE)
 			node->right = NULL;
-		}
 	}
 	else{
 		printf("Invalid Prefix\n");

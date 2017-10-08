@@ -17,9 +17,8 @@
 
 int main(int argc, char const *argv[])
 {
-	// Last argument is the file to read from
-	char const * file = argv[argc-1];
-	Node *root = PrefixTree(file);
+	char const * file = argv[argc-1]; /* Last argument is the file with the prefix table */
+	Node *root = PrefixTree(file); 
 
 	if(root != NULL)	
 		menu(root);

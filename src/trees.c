@@ -1,3 +1,9 @@
+/*******************************************************************
+*
+* This file contains functions that handle simple tasks in trees.
+* 
+********************************************************************/
+
 #include "trees.h"
 
 /******************************************************************************************
@@ -101,7 +107,7 @@ void setRight(Node *node, int num){
  *
  ******************************************************************************************/
 
-void setLeft(Node * node, int num){
+void setLeft(Node *node, int num){
 	if(node->left == NULL)
 		node->left=newNode(num);
 	else
