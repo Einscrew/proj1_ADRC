@@ -204,6 +204,11 @@ void DeletePrefix(Node *root, char *prefix){
 	int i = 0;
 	int prefixLength = strlen(prefix);
 
+	if(prefix[0] == DFLT_CHAR){
+		setValue(root,NO_HOP);
+		return;
+	}
+
 	for (i = 0; i < strlen(prefix); i++){
 
 		if (!(prefix[i] == '0' || prefix[i] == '1')){
