@@ -127,6 +127,8 @@ int checkPrefix(char *prefix){
 
 	int i = 0;
 
+	if(strcmp(prefix, DFLT_STR) == 0)
+		return VALID;
 	for(i=0; i < strlen(prefix); i++){
 		if(prefix[i] != '0' && prefix[i] != '1')
 			return NOT_VALID;

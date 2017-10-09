@@ -83,7 +83,11 @@ void PrintTable(Node *node, char *str1, char *str2){
 	PrintTable(getRight(node), aux, "1");
 
 	if(getValue(node) != NO_HOP && getValue(node) != DEFAULT){
-		printf("%s ", aux);
+		
+		if(strlen(aux) == 0)
+			printf("E");
+		else
+			printf("%s ", aux);
 		for(i = strlen(aux); i < 18; i++){
 			printf(" ");
 		}
@@ -113,7 +117,11 @@ int LookUp(Node *root, char *address){
 	int nextHop = -1;
 	int i = 0;
 	int addrlen = strlen(address);
+	nextHop = getValue(root);
 
+	if(!strcmp(address,DFLT_STR)){
+		return getValue(root);
+	}
 	while(aux != NULL && i<=addrlen){
 
 		if(getValue(aux) != NO_HOP && getValue(aux) != DEFAULT){
@@ -127,7 +135,7 @@ int LookUp(Node *root, char *address){
 		}
 		else if(address[i] == '1')
 			aux = getRight(aux);
-		else{
+		else if(i != addrlen){
 			nextHop = NOT_VALID;
 			break;
 		}
@@ -167,6 +175,10 @@ void InsertPrefix(char *prefix, int nextHop, int prefixLength, Node *node, int i
 			if(getLeft(node) == NULL)
 				setLeft(node, NO_HOP);
 			InsertPrefix(prefix, nextHop, --prefixLength, (Node *)getLeft(node), ++index);
+		}
+		else if(prefix[index]== 'E'){
+			setValue(node, nextHop);
+			printf("Default setted\n");	
 		}
 	}
 	else
