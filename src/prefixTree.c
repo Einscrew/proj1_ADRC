@@ -378,51 +378,43 @@ void BinaryToTwoBit(Node * BinTree, BNode * TwoBit){
 
 	return;
 }
-/******************************************************************************************
- * PrintPrefix()
- *
- * Arguments: hop - next hop of the node
- *
- * Returns: (void)
- * Side-Effects: prints the prefix and the correspondent next hop
- *
- * Description: used to print both prefix and next hop of a node
- *
- ******************************************************************************************/
 
-/*void PrintPrefix(int hop){
 
-	int i = 0;
-	
-	while(i <= prefixIndex){
-		printf("%d", prefixMap[i]);
-		i++;
-	}
-	if(prefixIndex >= 0){
-		printf("  >%d\n",hop );
-	}
-}*/
+void PrintTableEven(BNode *node, char *str1, char *str2){
 
-/*void PrintTable(Node *node){
+	int i=0;
 
-	Node *aux = node;
-
-	if (aux == NULL || prefixIndex >= PREF_MAX_SIZE)
+	if(node == NULL)
 		return;
 
-	if(getValue(aux) != NO_HOP)
-		PrintPrefix(getValue(aux));
+	char *aux = mallocVerified(strlen(str1)+strlen(str2) +1, sizeof(char*));
 
-	prefixMap[++prefixIndex] = LEFT;
-	PrintTable(getLeft(aux));
-	prefixMap[prefixIndex--] = NO_HOP;
+	for(i=0; i < strlen(str1)+strlen(str2) + 1 ; i++)
+		aux[i] = '\0';
+	
+	strcat(aux, str1);
+	strcat(aux, str2);
 
+	PrintTableEven(getOne(node), aux, "00");
+	PrintTableEven(getTwo(node), aux, "01");
+	PrintTableEven(getThree(node), aux, "10");
+	PrintTableEven(getFour(node), aux, "11");
 
-	prefixMap[++prefixIndex] = RIGHT;
-	PrintTable(getRight(aux));
-	prefixMap[prefixIndex--] = NO_HOP;
+	if(getBValue(node) != NO_HOP && getBValue(node) != DEFAULT){
+		
+		if(strlen(aux) == 0)
+			printf("E");
+		else
+			printf("%s ", aux);
+		for(i = strlen(aux); i < 18; i++){
+			printf(" ");
+		}
+		printf(">  %d\n", getBValue(node));	
+	}
 
-}*/
+	free(aux);
+
+}
 
 
 

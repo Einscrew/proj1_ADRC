@@ -21,7 +21,7 @@
  *
  ******************************************************************************************/
 
-void menu(Node *node){
+void menu(Node *node, BNode * EvenTree){
 
 	int option = 0;
 	int nextHop = NO_HOP;
@@ -31,7 +31,7 @@ void menu(Node *node){
 
 
 	showMenu();
-	while(option != 5){
+	while(option != 7){
 		
 		
 		option=scanOption();
@@ -77,6 +77,15 @@ void menu(Node *node){
 				free(prefix);
 				break;
 			case 5:
+				setBValue(EvenTree, getValue(node));
+				BinaryToTwoBit( node , EvenTree);
+				break;
+			case 6:
+				setBValue(EvenTree, getValue(node));
+				BinaryToTwoBit(node , EvenTree);
+				PrintTableEven(EvenTree, "", "");
+				break;
+			case 7:
 				return;
 				break;
 			default:
@@ -106,7 +115,9 @@ void showMenu(){
 	printf("2. Insert an address and get the next hop\n");
 	printf("3. Insert a new prefix in tree and the associated next hop\n");
 	printf("4. Delete a prefix from the tree\n");
-	printf("5. Exit\n\n");
+	printf("5. Convert BinaryToTwoBit\n\n");
+	printf("6. PrintConvertion\n\n");
+	printf("7. Exit\n\n");
 
 }
 
@@ -157,7 +168,7 @@ int checkPrefix(char *prefix){
 int scanOption(){
 	int option;
 	option = (int)getchar();
-	while(option < '1' || option > '5')
+	while(option < '1' || option > '7')
 		option = (int)getchar();
 	
 	return option -'0';

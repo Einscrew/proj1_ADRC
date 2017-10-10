@@ -2,6 +2,7 @@
 #define _UTILS_
 
 #include "prefixTree.h"
+#include "binaryTree.h"
 
 #define NOT_VALID -5
 #define VALID 1
@@ -9,7 +10,7 @@
 #define DFLT_STR "E"
 #define DFLT_CHAR 'E'
 
-void menu(Node *node);
+void menu(Node *node, BNode * EvenTree);
 void showMenu();
 int checkPrefix(char * prefix);
 int scanOption();

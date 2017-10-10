@@ -15,7 +15,7 @@ trees.o: trees.c trees.h
 binaryTree.o: binaryTree.c binaryTree.h
 	gcc $(CFLAGS) -c binaryTree.c
 	
-utils.o: utils.c utils.h prefixTree.h 
+utils.o: utils.c utils.h prefixTree.h binaryTree.h
 	gcc $(CFLAGS) -c utils.c
 
 clean:

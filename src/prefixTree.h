@@ -26,6 +26,7 @@ void InsertPrefix(char* prefix, int nextHop, int prefixLength, Node *node, int i
 void DeletePrefix(Node * root, char*prefix);
 int deleteP(Node *node, char *prefix, int index, int prefixLength);
 void BinaryToTwoBit(Node * BinTree, BNode * TwoBit);
+void PrintTableEven(BNode *node, char *str1, char *str2);
 
 
 //void PrintPrefix(int hop);
