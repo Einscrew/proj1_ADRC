@@ -1,9 +1,10 @@
+#ifndef _PREF_
+#define _PREF_
+
 #include <string.h>
 #include "trees.h"
 #include "utils.h"
-
-#ifndef _PREF_
-#define _PREF_
+#include "binaryTree.h"
 
 #define NO_HOP -1
 #define PREF_MAX_SIZE 16
@@ -24,6 +25,7 @@ int LookUp(Node * node, char * address);
 void InsertPrefix(char* prefix, int nextHop, int prefixLength, Node *node, int index);
 void DeletePrefix(Node * root, char*prefix);
 int deleteP(Node *node, char *prefix, int index, int prefixLength);
+void BinaryToTwoBit(Node * BinTree, BNode * TwoBit);
 
 
 //void PrintPrefix(int hop);

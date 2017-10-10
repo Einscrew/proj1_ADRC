@@ -10,8 +10,8 @@
 * is called.
 * 
 *****************************************************************************************************/
-
 #include "prefixTree.h"
+
 
 /******************************************************************************************
  * PrefixTree()
@@ -312,6 +312,72 @@ int deleteP(Node *node, char *prefix, int index, int prefixLength){
 		return RETURN;
 }
 
+
+
+
+
+void BinaryToTwoBit(Node * BinTree, BNode * TwoBit){
+	Node *one = NULL;
+	Node *two = NULL;
+	Node *three = NULL;
+	Node *four = NULL;
+	int createNumber = NOT_CREATE;
+
+	if(BinTree == NULL || TwoBit == NULL){
+		return;
+	}
+
+
+	createNumber = getValue(getLeft(BinTree));
+	if(createNumber != NOT_CREATE){
+
+
+		one = getLeft(getLeft(BinTree));
+		if(one == NULL || getValue(one) == NO_HOP){
+			setOne(TwoBit, createNumber);			
+		}
+		else{
+			setOne(TwoBit, getValue(one));
+		}
+
+		two = getRight(getLeft(BinTree));
+		if(two == NULL || getValue(two) == NO_HOP){
+			setTwo(TwoBit, createNumber);			
+		}
+		else{
+			setTwo(TwoBit, getValue(two));
+		}
+	}
+
+	createNumber = getValue(getRight(BinTree));
+	if(createNumber != NOT_CREATE){
+
+
+		three = getLeft(getRight(BinTree));
+		if(three == NULL || getValue(three) == NO_HOP){
+			setThree(TwoBit, createNumber);			
+		}
+		else{
+			setThree(TwoBit, getValue(three));
+		}
+
+		four = getRight(getRight(BinTree));
+		if(four == NULL || getValue(four) == NO_HOP){
+			setFour(TwoBit, createNumber);			
+		}
+		else{
+			setFour(TwoBit, getValue(four));
+		}
+
+	}
+	
+	BinaryToTwoBit(one, getOne(TwoBit));
+	BinaryToTwoBit(two, getTwo(TwoBit));
+	BinaryToTwoBit(three, getThree(TwoBit));
+	BinaryToTwoBit(four, getFour(TwoBit));
+
+	return;
+}
 /******************************************************************************************
  * PrintPrefix()
  *

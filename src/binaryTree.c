@@ -4,7 +4,7 @@
 * 
 ********************************************************************/
 
-#include "trees.h"
+#include "binaryTree.h"
 
 /******************************************************************************************
  * allocNode()
@@ -15,8 +15,8 @@
  *
  ******************************************************************************************/
 
-Node *allocNode(){
-	return ((Node *) malloc(sizeof(Node)));
+BNode *allocBNode(){
+	return ((BNode *) malloc(sizeof(BNode)));
 }
 
 /******************************************************************************************
@@ -28,13 +28,13 @@ Node *allocNode(){
  *
  ******************************************************************************************/
 
-Node *newNode(int num){
+BNode *newBNode(int num){
 	
-	Node *node;
+	BNode *node;
 
-	node = allocNode();
+	node = allocBNode();
 	node->value = num;
-	node->right = node->left = NULL;
+	node->one = node->two = node->three = node->four = NULL;
 
 	return node;
 }
@@ -48,22 +48,22 @@ Node *newNode(int num){
  *
  ******************************************************************************************/
 
-Node *getRight(Node * node){
-	return node->right;
+BNode *getOne(BNode * node){
+	return node->one;
 }
 
-/******************************************************************************************
- * getLeft()
- *
- * Arguments: node - node from the tree
- * Returns: left child of a node
- * Description: gets the left child of a node
- *
- ******************************************************************************************/
-
-Node *getLeft(Node * node){
-	return node->left;
+BNode *getTwo(BNode * node){
+	return node->two;
 }
+
+BNode *getThree(BNode * node){
+	return node->three;
+}
+
+BNode *getFour(BNode * node){
+	return node->four;
+}
+
 
 /******************************************************************************************
  * getValue()
@@ -74,10 +74,7 @@ Node *getLeft(Node * node){
  *
  ******************************************************************************************/
 
-int getValue(Node * node){
-	if( node == NULL){
-		return NOT_CREATE;
-	}
+int getBValue(BNode * node){
 	return node->value;
 }
 
@@ -92,31 +89,38 @@ int getValue(Node * node){
  *
  ******************************************************************************************/
 
-void setRight(Node *node, int num){
-	if(node->right == NULL)
-		node->right=newNode(num);
+
+void setOne(BNode *node, int num){
+
+	if(num == NOT_CREATE){
+		return;
+	}
+	if(node->one == NULL)
+		node->one=newBNode(num);
 	else
-		setValue(node->right, num);
+		setBValue(node->one, num);
 }
 
-/******************************************************************************************
- * setLeft()
- *
- * Arguments: node - node from the tree
- *			  num - value of the node
- * Returns: (void)
- * Description: creates the left child of a node if doesn't exists or change its value, 
- * if it already exists
- *
- ******************************************************************************************/
-
-void setLeft(Node *node, int num){
-	if(node->left == NULL)
-		node->left=newNode(num);
+void setTwo(BNode *node, int num){
+	if(node->two == NULL)
+		node->two=newBNode(num);
 	else
-		setValue(node->left, num);
+		setBValue(node->two, num);
 }
 
+void setThree(BNode *node, int num){
+	if(node->three == NULL)
+		node->three=newBNode(num);
+	else
+		setBValue(node->three, num);
+}
+
+void setFour(BNode *node, int num){
+	if(node->four == NULL)
+		node->four=newBNode(num);
+	else
+		setBValue(node->four, num);
+}
 /******************************************************************************************
  * setValue()
  *
@@ -127,7 +131,7 @@ void setLeft(Node *node, int num){
  *
  ******************************************************************************************/
 
-void setValue(Node *node, int num){
+void setBValue(BNode *node, int num){
 	if(node == NULL)
 		return;
 	node->value = num;
@@ -142,11 +146,12 @@ void setValue(Node *node, int num){
  *
  ******************************************************************************************/
 
-void freeTree(Node * root){
-
+void freeBTree(BNode * root){
 	if(root != NULL){
-		freeTree(root->left);
-		freeTree(root->right);
+		freeBTree(root->one);
+		freeBTree(root->two);
+		freeBTree(root->three);
+		freeBTree(root->four);
 		free(root);
 	}
 }

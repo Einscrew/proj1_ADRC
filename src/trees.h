@@ -1,10 +1,12 @@
+#ifndef TREES
+#define TREES
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
-#ifndef TREES
-#define TREES
 
+#define NOT_CREATE -10
 struct _Node{
 	int value;
 	struct _Node *left, *right;
