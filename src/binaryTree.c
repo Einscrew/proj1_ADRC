@@ -90,36 +90,49 @@ int getBValue(BNode * node){
  ******************************************************************************************/
 
 
-void setOne(BNode *node, int num){
+BNode * setOne(BNode *node, int num){
 
 	if(num == NOT_CREATE){
-		return;
+		return NULL;
 	}
 	if(node->one == NULL)
 		node->one=newBNode(num);
 	else
 		setBValue(node->one, num);
+	return node->one;
 }
 
-void setTwo(BNode *node, int num){
+BNode * setTwo(BNode *node, int num){
+	if(num == NOT_CREATE){
+		return NULL;
+	}
 	if(node->two == NULL)
 		node->two=newBNode(num);
 	else
 		setBValue(node->two, num);
+	return node->two;
 }
 
-void setThree(BNode *node, int num){
+BNode * setThree(BNode *node, int num){
+	if(num == NOT_CREATE){
+		return NULL;
+	}
 	if(node->three == NULL)
 		node->three=newBNode(num);
 	else
 		setBValue(node->three, num);
+	return node->three;
 }
 
-void setFour(BNode *node, int num){
+BNode * setFour(BNode *node, int num){
+	if(num == NOT_CREATE){
+		return NULL;
+	}
 	if(node->four == NULL)
 		node->four=newBNode(num);
 	else
 		setBValue(node->four, num);
+	return node->four;
 }
 /******************************************************************************************
  * setValue()

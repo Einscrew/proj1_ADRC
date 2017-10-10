@@ -10,7 +10,7 @@
 #define DFLT_STR "E"
 #define DFLT_CHAR 'E'
 
-void menu(Node *node, BNode * EvenTree);
+void menu(Node *node);
 void showMenu();
 int checkPrefix(char * prefix);
 int scanOption();

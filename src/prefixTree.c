@@ -386,21 +386,22 @@ void PrintTableEven(BNode *node, char *str1, char *str2){
 
 	if(node == NULL)
 		return;
-
-	char *aux = mallocVerified(strlen(str1)+strlen(str2) +1, sizeof(char*));
+	char *aux =NULL;
+	/*char *aux = mallocVerified(strlen(str1)+strlen(str2) +1, sizeof(char*));
 
 	for(i=0; i < strlen(str1)+strlen(str2) + 1 ; i++)
 		aux[i] = '\0';
 	
 	strcat(aux, str1);
-	strcat(aux, str2);
+	strcat(aux, str2);*/
 
 	PrintTableEven(getOne(node), aux, "00");
 	PrintTableEven(getTwo(node), aux, "01");
 	PrintTableEven(getThree(node), aux, "10");
 	PrintTableEven(getFour(node), aux, "11");
 
-	if(getBValue(node) != NO_HOP && getBValue(node) != DEFAULT){
+	printf("%d\n", getBValue(node));
+	/*if(getBValue(node) != NO_HOP && getBValue(node) != DEFAULT){
 		
 		if(strlen(aux) == 0)
 			printf("E");
@@ -410,9 +411,9 @@ void PrintTableEven(BNode *node, char *str1, char *str2){
 			printf(" ");
 		}
 		printf(">  %d\n", getBValue(node));	
-	}
+	}*/
 
-	free(aux);
+	//free(aux);
 
 }
 

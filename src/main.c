@@ -19,12 +19,9 @@ int main(int argc, char const *argv[])
 {
 	char const * file = argv[argc-1]; /* Last argument is the file with the prefix table */
 	Node *root = PrefixTree(file); 
-	BNode *broot = newBNode(getValue(root));
 	if(root != NULL)	
-		menu(root, broot);
+		menu(root);
 	
-
-	//freeEvenTREE
 	freeTree(root);
 	return 0;
 }

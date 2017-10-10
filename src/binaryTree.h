@@ -25,11 +25,10 @@ BNode *getThree(BNode * node);
 BNode *getFour(BNode * node);
 int getBValue(BNode *node);
 
-void setOne(BNode *node, int num);
-void setTwo(BNode *node, int num);
-void setThree(BNode *node, int num);
-void setFour(BNode *node, int num);
-
+BNode * setOne(BNode *node, int num);
+BNode * setTwo(BNode *node, int num);
+BNode * setThree(BNode *node, int num);
+BNode * setFour(BNode *node, int num);
 void setBValue(BNode *node, int num);
 void freeBTree(BNode *root);
 
