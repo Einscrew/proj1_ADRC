@@ -314,6 +314,19 @@ int deleteP(Node *node, char *prefix, int index, int prefixLength){
 
 
 
+/*****************************************************************************************************
+ * BinaryToTwoBit()
+ *
+ * Arguments: BinTree - pointer to a node of the "original" tree
+ *			  TwoBit - pointer to a node of the TwoBitTree
+ *
+ * Returns: -
+ * Side-Effects: For a TwoBit node allocates it's four childs
+ *
+ * Description: For a given TwoBit node, the original three is analysed
+ * and the atribution of TwoBit node values is made
+ *
+ *****************************************************************************************************/
 
 
 void BinaryToTwoBit(Node * BinTree, BNode * TwoBit){
@@ -329,10 +342,14 @@ void BinaryToTwoBit(Node * BinTree, BNode * TwoBit){
 
 
 	createNumber = getValue(getLeft(BinTree));
+
+	// the first and second child of TwoBit node
+	// only exit if the LEFT child of BinTree exists
 	if(createNumber != NOT_CREATE){
-
-
+		//grandson of binary tree node
 		one = getLeft(getLeft(BinTree));
+		// The value of grandson is inherited from is father
+		// if it is either unexistent or with no Hop
 		if(one == NULL || getValue(one) == NO_HOP){
 			setOne(TwoBit, createNumber);			
 		}
@@ -340,6 +357,7 @@ void BinaryToTwoBit(Node * BinTree, BNode * TwoBit){
 			setOne(TwoBit, getValue(one));
 		}
 
+		//grandson of binary tree node
 		two = getRight(getLeft(BinTree));
 		if(two == NULL || getValue(two) == NO_HOP){
 			setTwo(TwoBit, createNumber);			
@@ -349,10 +367,11 @@ void BinaryToTwoBit(Node * BinTree, BNode * TwoBit){
 		}
 	}
 
+	// the thrird and fourth child of TwoBit node
+	// only exit if the RIGHT child of BinTree exists
 	createNumber = getValue(getRight(BinTree));
 	if(createNumber != NOT_CREATE){
-
-
+		//grandson of binary tree node
 		three = getLeft(getRight(BinTree));
 		if(three == NULL || getValue(three) == NO_HOP){
 			setThree(TwoBit, createNumber);			
@@ -360,7 +379,7 @@ void BinaryToTwoBit(Node * BinTree, BNode * TwoBit){
 		else{
 			setThree(TwoBit, getValue(three));
 		}
-
+		//grandson of binary tree node
 		four = getRight(getRight(BinTree));
 		if(four == NULL || getValue(four) == NO_HOP){
 			setFour(TwoBit, createNumber);			
@@ -371,6 +390,8 @@ void BinaryToTwoBit(Node * BinTree, BNode * TwoBit){
 
 	}
 	
+	// The recursion is applied with the TwoBit node sons
+	// and with the Binary tree node grandsons, if they exist
 	BinaryToTwoBit(one, getOne(TwoBit));
 	BinaryToTwoBit(two, getTwo(TwoBit));
 	BinaryToTwoBit(three, getThree(TwoBit));
@@ -416,6 +437,17 @@ void PrintTableEven(BNode *node, char *str1, char *str2){
 
 }
 
-
-
-
+/******************************************************************************************
+ * PrintTableEven()
+ *
+ * Arguments: node - pointer to a twobit tree node
+ *			  str1 and str2 - auxiliar strings that hold the prefix to print
+ *
+ * Returns: (void)
+ * Side-Effects: prints a prefix table having a prefix tree as an input
+ *
+ * Description: giving the root tree, all the nodes of that tree are visited, recursively, 
+ * and the prefix at each node is kept in order to print a prefix, if there is a next hop 
+ * associated with that node
+ *
+ ******************************************************************************************/
