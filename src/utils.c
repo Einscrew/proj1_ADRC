@@ -48,6 +48,7 @@ void menu(Node *node){
 				printf("Enter an address to search: \n");
 				address = (char*)mallocVerified((PREF_MAX_SIZE+8), sizeof(char));
 				scanf("%s", address);
+				getchar();
 				if(checkPrefix(address) == VALID){
 					nextHop = LookUp(node, address);
 					if(nextHop != NO_HOP && nextHop != DEFAULT && nextHop != NOT_VALID)
@@ -65,6 +66,7 @@ void menu(Node *node){
 				printf("Enter a new prefix and, after a space, the associated next hop: \n");
 				prefix = mallocVerified((PREF_MAX_SIZE+8), sizeof(char));
 				scanf("%s %d", prefix, &nextHop);
+				getchar();
 				check = checkPrefix(prefix);
 				if(check == VALID)
 					InsertPrefix(prefix, nextHop, strlen(prefix), node, 0);
@@ -76,6 +78,7 @@ void menu(Node *node){
 				printf("Enter the prefix to delete: \n");
 				prefix = mallocVerified((PREF_MAX_SIZE+8), sizeof(char));
 				scanf("%s", prefix);
+				getchar();
 				DeletePrefix(node, prefix);
 				free(prefix);
 				break;
@@ -117,7 +120,7 @@ void showMenu(){
 	printf("2. Look for the given address's next Hop\n");
 	printf("3. Insert a new prefix in tree and the associated next hop\n");
 	printf("4. Delete a prefix from the tree\n");
-	printf("5. Print Two Bit prefix table\n");
+	printf("5. Print Two-Bit prefix table\n");
 	printf("6. Exit\n\n");
 
 }
@@ -171,7 +174,7 @@ int scanOption(){
 	char line[100];
 	do{
 		memset(line, '\0', 100);
-		printf("Inset a valid option [1 - 6]:\n");
+		printf("Insert a valid option [1 - 6]:\n");
 		fgets(line, 100, stdin);
 	}while(sscanf(line, "%d", &option) != 1);
 
