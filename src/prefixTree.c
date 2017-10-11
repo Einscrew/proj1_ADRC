@@ -34,7 +34,7 @@ Node* PrefixTree(char const *file){
 
 	if(ptr == NULL)
 	{
-		printf("There isn't any file");
+		printf("There isn't any file\n");
 		return NULL;
 	}
 
