@@ -83,7 +83,8 @@ void PrintTable(Node *node, char *str1, char *str2){
 	PrintTable(getRight(node), aux, "1");
 
 	if(getValue(node) != NO_HOP && getValue(node) != DEFAULT){
-		
+		printf("+-----------------+---------+\n");
+		printf("| ");
 		if(strlen(aux) == 0)
 			printf("E");
 		else
@@ -91,7 +92,8 @@ void PrintTable(Node *node, char *str1, char *str2){
 		for(i = strlen(aux); i < 18; i++){
 			printf(" ");
 		}
-		printf(">  %d\n", getValue(node));	
+		printf(">  %d   |\n", getValue(node));	
+		
 	}
 
 	free(aux);
@@ -400,6 +402,21 @@ void BinaryToTwoBit(Node * BinTree, BNode * TwoBit){
 	return;
 }
 
+/******************************************************************************************
+ * PrintTableEven()
+ *
+ * Arguments: node - pointer to a twobit tree node
+ *			  str1 and str2 - auxiliar strings that hold the prefix to print
+ *
+ * Returns: (void)
+ * Side-Effects: prints a even prefix table having a even prefix tree as an input
+ *
+ * Description: giving the root tree, all the nodes of that tree are visited, recursively, 
+ * and the prefix at each node is kept in order to print a prefix, if there is a next hop 
+ * associated with that node
+ *
+ ******************************************************************************************/
+
 
 void PrintTableEven(BNode *node, char *str1, char *str2){
 
@@ -423,6 +440,8 @@ void PrintTableEven(BNode *node, char *str1, char *str2){
 
 	if(getBValue(node) != NO_HOP && getBValue(node) != DEFAULT){
 		
+		printf("+-----------------+---------+\n");
+		printf("| ");
 		if(strlen(aux) == 0)
 			printf("E");
 		else
@@ -430,24 +449,8 @@ void PrintTableEven(BNode *node, char *str1, char *str2){
 		for(i = strlen(aux); i < 18; i++){
 			printf(" ");
 		}
-		printf(">  %d\n", getBValue(node));	
+		printf(">  %d   |\n", getBValue(node));	
 	}
 
 	free(aux);
-
 }
-
-/******************************************************************************************
- * PrintTableEven()
- *
- * Arguments: node - pointer to a twobit tree node
- *			  str1 and str2 - auxiliar strings that hold the prefix to print
- *
- * Returns: (void)
- * Side-Effects: prints a prefix table having a prefix tree as an input
- *
- * Description: giving the root tree, all the nodes of that tree are visited, recursively, 
- * and the prefix at each node is kept in order to print a prefix, if there is a next hop 
- * associated with that node
- *
- ******************************************************************************************/

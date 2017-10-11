@@ -42,6 +42,7 @@ void menu(Node *node){
 
 			case 1: 
 				PrintTable(node, "", "");
+				printf("+-----------------+---------+\n");
 				break;
 			case 2:
 				printf("Enter an address to search: \n");
@@ -83,6 +84,7 @@ void menu(Node *node){
 				setBValue(EvenTree, getValue(node));
 				BinaryToTwoBit(node , EvenTree);
 				PrintTableEven(EvenTree, "", "");
+				printf("+-----------------+---------+\n");
 				freeBTree(EvenTree);
 				break;
 			case 6:
@@ -115,7 +117,7 @@ void showMenu(){
 	printf("2. Look for the given address's next Hop\n");
 	printf("3. Insert a new prefix in tree and the associated next hop\n");
 	printf("4. Delete a prefix from the tree\n");
-	printf("5. Convert BinaryToTwoBit\n");
+	printf("5. Print Two Bit prefix table\n");
 	printf("6. Exit\n\n");
 
 }
@@ -165,13 +167,15 @@ int checkPrefix(char *prefix){
  ******************************************************************************************/
 
 int scanOption(){
-	int option;
-	option = (int)getchar();
-	while(option < '1' || option > '6')
-		option = (int)getchar();
-	
-	return option -'0';
+	int option = 0;
+	char line[100];
+	do{
+		memset(line, '\0', 100);
+		printf("Inset a valid option [1 - 6]:\n");
+		fgets(line, 100, stdin);
+	}while(sscanf(line, "%d", &option) != 1);
 
+	return option;
 }
 
 /******************************************************************************************
