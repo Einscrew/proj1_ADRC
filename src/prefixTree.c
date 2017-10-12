@@ -278,8 +278,6 @@ int deleteP(Node *node, char *prefix, int index, int prefixLength){
 		return RETURN;
 	}
 
-	printf("interation:%d - %c\n", index,  prefix[index]);
-
 	if(index+1 == prefixLength && getValue(node) != DEFAULT){
 		if(Erase(&node))
 			return ERASE;
