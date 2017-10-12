@@ -19,7 +19,7 @@ int main(int argc, char const *argv[])
 {
 	char const * file = argv[argc-1]; /* Last argument is the file with the prefix table */
 	if(argc == 1){
-		printf("There must exist a file\n");
+		printf("There must exist a file. Please run the program again with a file.\n");
 		return 0;
 	}
 	Node *root = PrefixTree(file); 
