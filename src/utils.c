@@ -42,7 +42,7 @@ void menu(Node *node){
 
 			case 1: 
 				PrintTable(node, "", "");
-				printf("+-----------------+---------+\n");
+				printf("+-----------------+-------------+\n");
 				break;
 			case 2:
 				printf("Enter an address to search: \n");
@@ -87,7 +87,7 @@ void menu(Node *node){
 				setBValue(EvenTree, getValue(node));
 				BinaryToTwoBit(node , EvenTree);
 				PrintTableEven(EvenTree, "", "");
-				printf("+-----------------+---------+\n");
+				printf("+-----------------+-------------+\n");
 				freeBTree(EvenTree);
 				break;
 			case 6:

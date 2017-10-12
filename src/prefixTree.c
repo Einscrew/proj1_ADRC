@@ -71,6 +71,7 @@ void PrintTable(Node *node, char *str1, char *str2){
 	if(node == NULL)
 		return;
 
+	char hop[10] ={'\n'};
 	char *aux = mallocVerified(strlen(str1)+strlen(str2) +1, sizeof(char*));
 
 	for(i=0; i < strlen(str1)+strlen(str2) + 1 ; i++)
@@ -83,7 +84,7 @@ void PrintTable(Node *node, char *str1, char *str2){
 	PrintTable(getRight(node), aux, "1");
 
 	if(getValue(node) != NO_HOP && getValue(node) != DEFAULT){
-		printf("+-----------------+---------+\n");
+		printf("+-----------------+-------------+\n");
 		printf("| ");
 		if(strlen(aux) == 0)
 			printf("E");
@@ -92,7 +93,14 @@ void PrintTable(Node *node, char *str1, char *str2){
 		for(i = strlen(aux); i < 17; i++){
 			printf(" ");
 		}
-		printf("> %.6d|\n", getValue(node));	
+
+		printf("> ");
+		sprintf(hop, "%d", getValue(node));
+		for (int i = 0; i < 10 - strlen(hop); ++i){
+			printf(" ");
+		}
+		
+		printf("%s|\n", hop);
 		
 	}
 
@@ -422,7 +430,7 @@ void PrintTableEven(BNode *node, char *str1, char *str2){
 
 	if(node == NULL)
 		return;
-
+	char hop[10] ={'\n'};
 	char *aux = mallocVerified(strlen(str1)+strlen(str2) +1, sizeof(char*));
 
 	for(i=0; i < strlen(str1)+strlen(str2) + 1 ; i++)
@@ -438,7 +446,7 @@ void PrintTableEven(BNode *node, char *str1, char *str2){
 
 	if(getBValue(node) != NO_HOP && getBValue(node) != DEFAULT){
 		
-		printf("+-----------------+---------+\n");
+		printf("+-----------------+-------------+\n");
 		printf("| ");
 		if(strlen(aux) == 0)
 			printf("E");
@@ -447,7 +455,14 @@ void PrintTableEven(BNode *node, char *str1, char *str2){
 		for(i = strlen(aux); i < 17; i++){
 			printf(" ");
 		}
-		printf("> %.6d|\n", getBValue(node));
+
+		printf("> ");
+		sprintf(hop, "%d", getBValue(node));
+		for (int i = 0; i < 10 - strlen(hop); ++i){
+			printf(" ");
+		}
+		
+		printf("%s|\n", hop);
 
 	}
 
