@@ -19,17 +19,13 @@
 #define REMOVE -3
 
 
-Node* PrefixTree(char const * file);
+Node *PrefixTree(char const *file);
 void PrintTable(Node *node, char *str1, char *str2);
-int LookUp(Node * node, char * address);
-void InsertPrefix(char* prefix, int nextHop, int prefixLength, Node *node, int index);
-void DeletePrefix(Node * root, char*prefix);
+int LookUp(Node * node, char *address);
+void InsertPrefix(char *prefix, int nextHop, int prefixLength, Node *node, int index);
+void DeletePrefix(Node *root, char *prefix);
 int deleteP(Node *node, char *prefix, int index, int prefixLength);
-void BinaryToTwoBit(Node * BinTree, BNode * TwoBit);
+void BinaryToTwoBit(Node *BinTree, BNode *TwoBit);
 void PrintTableEven(BNode *node, char *str1, char *str2);
-
-
-//void PrintPrefix(int hop);
-//void PrintTable(Node *node);
 
 #endif

@@ -166,7 +166,6 @@ int checkPrefix(char *prefix){
  *
  * Description: Used to get a valid menu option from the user
  * 
- *
  ******************************************************************************************/
 
 int scanOption(){
@@ -192,7 +191,6 @@ int scanOption(){
  *
  * Description: Verifies if memory was allocated correctly
  * 
- *
  ******************************************************************************************/
 
 void *mallocVerified(int number, int size){

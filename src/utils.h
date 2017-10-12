@@ -12,8 +12,8 @@
 
 void menu(Node *node);
 void showMenu();
-int checkPrefix(char * prefix);
+int checkPrefix(char *prefix);
 int scanOption();
-void * mallocVerified(int number, int size);
+void *mallocVerified(int number, int size);
 
 #endif
