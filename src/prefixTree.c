@@ -89,10 +89,10 @@ void PrintTable(Node *node, char *str1, char *str2){
 			printf("E");
 		else
 			printf("%s ", aux);
-		for(i = strlen(aux); i < 18; i++){
+		for(i = strlen(aux); i < 17; i++){
 			printf(" ");
 		}
-		printf(">  %d   |\n", getValue(node));	
+		printf("> %.6d|\n", getValue(node));	
 		
 	}
 
@@ -444,10 +444,11 @@ void PrintTableEven(BNode *node, char *str1, char *str2){
 			printf("E");
 		else
 			printf("%s ", aux);
-		for(i = strlen(aux); i < 18; i++){
+		for(i = strlen(aux); i < 17; i++){
 			printf(" ");
 		}
-		printf(">  %d   |\n", getBValue(node));	
+		printf("> %.6d|\n", getBValue(node));
+
 	}
 
 	free(aux);
