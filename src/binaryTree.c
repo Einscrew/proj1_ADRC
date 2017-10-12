@@ -7,11 +7,11 @@
 #include "binaryTree.h"
 
 /******************************************************************************************
- * allocNode()
+ * allocBNode()
  *
  * Arguments: (none)
  * Returns: node
- * Description: creates a node
+ * Description: creates a node of type BNode
  *
  ******************************************************************************************/
 
@@ -20,11 +20,11 @@ BNode *allocBNode(){
 }
 
 /******************************************************************************************
- * newNode()
+ * newBNode()
  *
  * Arguments: num - value of the node
  * Returns: new node
- * Description: creates a new node
+ * Description: creates a new node with four children
  *
  ******************************************************************************************/
 
@@ -40,37 +40,63 @@ BNode *newBNode(int num){
 }
 
 /******************************************************************************************
- * getRight()
+ * getOne()
  *
  * Arguments: node - node from the tree
- * Returns: right child of a node
- * Description: gets the right child of a node
+ * Returns: first child of the two-bit tree
+ * Description: gets the first child of a two-bit tree
  *
  ******************************************************************************************/
 
-BNode *getOne(BNode * node){
+BNode *getOne(BNode *node){
 	return node->one;
 }
+
+/******************************************************************************************
+ * getTwo()
+ *
+ * Arguments: node - node from the tree
+ * Returns: second child of the two-bit tree
+ * Description: gets the second child of a two-bit tree
+ *
+ ******************************************************************************************/
 
 BNode *getTwo(BNode * node){
 	return node->two;
 }
 
+/******************************************************************************************
+ * getthree()
+ *
+ * Arguments: node - node from the tree
+ * Returns: third child of the two-bit tree
+ * Description: gets the third child of a two-bit tree
+ *
+ ******************************************************************************************/
+
 BNode *getThree(BNode * node){
 	return node->three;
 }
+
+/******************************************************************************************
+ * getFour()
+ *
+ * Arguments: node - node from the tree
+ * Returns: fourth child of the two-bit tree
+ * Description: gets the fourth child of a two-bit tree
+ *
+ ******************************************************************************************/
 
 BNode *getFour(BNode * node){
 	return node->four;
 }
 
-
 /******************************************************************************************
- * getValue()
+ * getBValue()
  *
  * Arguments: node - node from the tree
  * Returns: value of the node
- * Description: gets the value of the node
+ * Description: gets the value of the node from a two-bit tree
  *
  ******************************************************************************************/
 
@@ -78,19 +104,18 @@ int getBValue(BNode * node){
 	return node->value;
 }
 
-/******************************************************************************************
- * setRight()
+/**********************************************************************************************
+ * setOne()
  *
  * Arguments: node - node from the tree
  *			  num - value of the node
- * Returns: (void)
- * Description: creates the right child of a node if doesn't exists or change its value, 
+ * Returns: first child of a node from a two-bit prefix tree 
+ * Description: creates the first child of a Bnode type if doesn't exists or change its value, 
  * if it already exists
  *
- ******************************************************************************************/
+ **********************************************************************************************/
 
-
-BNode * setOne(BNode *node, int num){
+BNode *setOne(BNode *node, int num){
 
 	if(num == NOT_CREATE){
 		return NULL;
@@ -102,7 +127,18 @@ BNode * setOne(BNode *node, int num){
 	return node->one;
 }
 
-BNode * setTwo(BNode *node, int num){
+/**********************************************************************************************
+ * setTwo()
+ *
+ * Arguments: node - node from the tree
+ *			  num - value of the node
+ * Returns: second child of a node from a two-bit prefix tree 
+ * Description: creates the second child of a Bnode type if doesn't exists or change its value, 
+ * if it already exists
+ *
+ **********************************************************************************************/
+
+BNode *setTwo(BNode *node, int num){
 	if(num == NOT_CREATE){
 		return NULL;
 	}
@@ -113,7 +149,18 @@ BNode * setTwo(BNode *node, int num){
 	return node->two;
 }
 
-BNode * setThree(BNode *node, int num){
+/**********************************************************************************************
+ * setThree()
+ *
+ * Arguments: node - node from the tree
+ *			  num - value of the node
+ * Returns: third child of a node from a two-bit prefix tree 
+ * Description: creates the third child of a Bnode type if doesn't exists or change its value, 
+ * if it already exists
+ *
+ **********************************************************************************************/
+
+BNode *setThree(BNode *node, int num){
 	if(num == NOT_CREATE){
 		return NULL;
 	}
@@ -124,7 +171,18 @@ BNode * setThree(BNode *node, int num){
 	return node->three;
 }
 
-BNode * setFour(BNode *node, int num){
+/**********************************************************************************************
+ * setFour()
+ *
+ * Arguments: node - node from the tree
+ *			  num - value of the node
+ * Returns: fourth child of a node from a two-bit prefix tree 
+ * Description: creates the fourth child of a Bnode type if doesn't exists or change its value, 
+ * if it already exists
+ *
+ **********************************************************************************************/
+
+BNode *setFour(BNode *node, int num){
 	if(num == NOT_CREATE){
 		return NULL;
 	}
@@ -134,13 +192,14 @@ BNode * setFour(BNode *node, int num){
 		setBValue(node->four, num);
 	return node->four;
 }
+
 /******************************************************************************************
- * setValue()
+ * setBValue()
  *
  * Arguments: node - node from the tree
  *			  num - value of the node
  * Returns: (void)
- * Description: sets the value of a node
+ * Description: sets the value of a node of type BNode
  *
  ******************************************************************************************/
 
@@ -151,11 +210,11 @@ void setBValue(BNode *node, int num){
 }
 
 /******************************************************************************************
- * freeTree()
+ * freeBTree()
  *
  * Arguments: root - root of the tree
  * Returns: (void)
- * Description: free all memory allocated within the tree
+ * Description: free all memory allocated within the two-bit tree
  *
  ******************************************************************************************/
 
