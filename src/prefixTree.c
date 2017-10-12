@@ -188,7 +188,7 @@ void InsertPrefix(char *prefix, int nextHop, int prefixLength, Node *node, int i
 		}
 		else if(prefix[index]== 'E'){
 			setValue(node, nextHop);
-			printf("Default setted\n");	
+			printf("Established root next-hop\n");	
 		}
 	}
 	else
